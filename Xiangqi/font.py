@@ -30,7 +30,8 @@ def font_setup():
 
     file_path = "BabelStoneXiangqiColour.ttf"
 
-    if !os.path.exists(file_path): font_download()
+    if not os.path.exists(file_path): 
+        font_download()
        
     # Activate 
 
