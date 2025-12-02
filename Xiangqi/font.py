@@ -28,9 +28,9 @@ def font_setup():
 
     import os
 
-    file_path = "BabelStoneXiangqiColour.ttf"
+    file_name = "BabelStoneXiangqiColour.ttf"
 
-    if not os.path.exists(file_path): 
+    if not os.path.exists(file_name): 
         font_download()
        
     # Activate 
