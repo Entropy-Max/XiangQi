@@ -20,7 +20,7 @@ def font_download(source='github'):
     with open(file_name, "wb") as f:
         f.write(r.content)
 
-    print("Font download: ready", file_name)
+    print("Font downloading......ready")
 
 def font_setup():
     """Check font file exists, if not then download"""
@@ -42,3 +42,5 @@ def font_setup():
     os.system('!fc-cache -f -v')
     os.system('!fc-list :family')
     os.system('!fc-list :family | grep -i BabelStoneColour')
+
+    print("Font setup......ready")
