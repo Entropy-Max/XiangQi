@@ -1,4 +1,3 @@
-
 # Download manually 
 #!wget -O BabelStoneXiangqiColour.ttf https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/BabelStoneXiangqiColour.ttf
 
