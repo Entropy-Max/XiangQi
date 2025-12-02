@@ -1,12 +1,13 @@
+import os
+import requests
+import shutil
+
 # Download manually 
 #!wget -O BabelStoneXiangqiColour.ttf https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/BabelStoneXiangqiColour.ttf
 
 def font_download(source='github'):
     """Download Font BabelStone Xiangqi Colour"""
-
-    import os
-    import requests
-
+    
     # Download font
 
     if source=='github':
@@ -24,9 +25,6 @@ def font_download(source='github'):
 
 def font_setup():
     """Check font file exists, if not then download"""
-
-    import os
-    import shutil
 
     file_name = "BabelStoneXiangqiColour.ttf"
 
