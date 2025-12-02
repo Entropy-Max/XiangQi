@@ -6,7 +6,6 @@ def font_download(source='github'):
 
     import os
     import requests
-    import shutil
 
     # Download font
 
@@ -27,6 +26,7 @@ def font_setup():
     """Check font file exists, if not then download"""
 
     import os
+    import shutil
 
     file_name = "BabelStoneXiangqiColour.ttf"
 
