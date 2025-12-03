@@ -23,7 +23,7 @@ class FEN:
 
         self.fen = ''.join(ch.lower() if ch.isupper() else ch.upper() if ch.islower() else ch for ch in self.fen)
 
-    def red_top(self):
+    def set_red_top(self):
 
         ranks = self.fen.split('/')
 
@@ -39,7 +39,7 @@ class FEN:
         else:
             print("Could not determine (no kings found).")
 
-    def red_bottom(self):
+    def set_red_bottom(self):
 
         ranks = self.fen.split('/')
 
@@ -174,8 +174,8 @@ class FEN:
 
     def draw_new(self,orientation='h'):
 
-        img1 = draw_xiangqi_fen(red_bottom(self.fen))
-        img2 = draw_xiangqi_fen(red_top(self.fen))
+        img1 = self.draw(self.set_red_bottom(self.fen))
+        img2 = self.draw(self.set_red_top(self.fen))
 
         if orientation=='h':
             # Paste both images side by side
