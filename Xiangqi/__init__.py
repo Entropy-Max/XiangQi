@@ -2,6 +2,8 @@ import os
 import requests
 import shutil
 import matplotlib.font_manager as fm
+from PIL import Image, ImageDraw, ImageFont
+from IPython.display import display
 
 from . import font
 from . import FEN
@@ -10,6 +12,7 @@ from .FEN import draw_xiangqi_fen
 __all__=["draw_xiangqi_fen"]
 
 font.font_setup()
+
 
 
 
