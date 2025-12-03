@@ -1,4 +1,8 @@
+from PIL import Image, ImageDraw, ImageFont
+from IPython.display import display
+
 font_path = "/content/BabelStoneXiangqiColour.ttf" # Replace with your font filename
+font_piece = ImageFont.truetype(font_path, 48)
 
 # FEN (Forsyth-Edwards Notation)
 # https://xiangqiboard.com/
@@ -54,8 +58,6 @@ def print_xiangqi_fen(fen):
         print(' '.join(r))
 
 def draw_xiangqi_fen(fen):
-
-    font_piece = ImageFont.truetype(font_path, 48)
 
     # Board config
     cell_size = 60
