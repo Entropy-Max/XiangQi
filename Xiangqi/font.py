@@ -14,11 +14,19 @@ def font_download(source='github'):
     with open(file_name, "wb") as f:
         f.write(r.content)
 
+    # Activate 
+    font_path = "/usr/share/fonts/truetype/BabelStoneXiangqiColour.ttf"
+    shutil.copy(file_name, font_path)
+
+    os.system('!fc-cache -f -v')
+    os.system('!fc-list :family')
+    os.system('!fc-list :family | grep -i BabelStoneColour')
+        
     print("Font downloading......done!")
 
 def font_setup():
     """Check font file exists, if not then download"""
-
+ 
     file_name = "BabelStoneXiangqiColour.ttf"
 
     # System fonts directory
@@ -28,12 +36,4 @@ def font_setup():
     if (not file_name in font_names) and (not os.path.exists(file_name)):
         font_download()
        
-        # Activate 
-        font_path = "/usr/share/fonts/truetype/BabelStoneXiangqiColour.ttf"
-        shutil.copy(file_name, font_path)
-
-        os.system('!fc-cache -f -v')
-        os.system('!fc-list :family')
-        os.system('!fc-list :family | grep -i BabelStoneColour')
-
     print("Font setup......done!")
