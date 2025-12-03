@@ -13,6 +13,15 @@ class FEN:
     def __str__(self):
         return f"FEN(fen={self.fen})"
 
+    def valid(self):
+
+        ranks = self.fen.split('/')
+        if len(ranks)!=10:
+            print("10 ranks Expected")
+        for rank in ranks:
+            if len(rank)!=9:
+                print(f"9 files expected in rank {rank}")
+
     def flip_lr(self):
 
         ranks = self.fen.split('/')
