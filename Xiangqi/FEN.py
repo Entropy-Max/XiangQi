@@ -7,25 +7,25 @@ from IPython.display import display
 # https://xqbase.com/tools/xqviewer.htm
 
 class FEN:
-    def __init__(self, txt):
-        self.txt = txt   # attribute
+    def __init__(self, fen):
+        self.fen = fen   # attribute
 
     def __str__(self):
-        return f"FEN(txt={self.txt})"
+        return f"FEN(fen={self.fen})"
 
     def flip_lr(self):
 
-        ranks = fen.split('/')
+        ranks = self.fen.split('/')
 
-        self.txt = '/'.join(rank[::-1] for rank in ranks)
+        self.fen = '/'.join(rank[::-1] for rank in ranks)
 
     def flip_case(self):
 
-        self.txt = ''.join(ch.lower() if ch.isupper() else ch.upper() if ch.islower() else ch for ch in fen)
+        self.fen = ''.join(ch.lower() if ch.isupper() else ch.upper() if ch.islower() else ch for ch in self.fen)
 
     def red_top(self):
 
-        ranks = fen.split('/')
+        ranks = self.fen.split('/')
 
         red_king_rank = next((i for i, r in enumerate(ranks) if 'K' in r), None)
         black_king_rank = next((i for i, r in enumerate(ranks) if 'k' in r), None)
@@ -33,15 +33,15 @@ class FEN:
         # Decide which side is on top
         if red_king_rank is not None and black_king_rank is not None:
             if red_king_rank < black_king_rank:
-                self.txt = fen
+                self.fen = self.fen
             else:
-                self.txt = fen[::-1]
+                self.fen = self.fen[::-1]
         else:
             print("Could not determine (no kings found).")
 
     def red_bottom(self):
 
-        ranks = fen.split('/')
+        ranks = self.fen.split('/')
 
         red_king_rank = next((i for i, r in enumerate(ranks) if 'K' in r), None)
         black_king_rank = next((i for i, r in enumerate(ranks) if 'k' in r), None)
@@ -49,15 +49,15 @@ class FEN:
         # Decide which side is on top
         if red_king_rank is not None and black_king_rank is not None:
             if red_king_rank > black_king_rank:
-                self.txt =  fen
+                self.fen =  self.fen
             else:
-                self.txt =  fen[::-1]
+                self.fen =  self.fen[::-1]
         else:
             print("Could not determine (no kings found).")
 
     def print(self):
 
-        board= fen_to_matrix(fen)
+        board= fen_to_matrix(self.fen)
         for r in board:
             print(' '.join(r))
 
@@ -147,7 +147,7 @@ class FEN:
 
         # Example FEN
 
-        ranks = fen.split()[0].split('/')
+        ranks = self.fen.split()[0].split('/')
 
         # Draw pieces with circle + color
         for row_idx, row in enumerate(ranks):
@@ -172,10 +172,10 @@ class FEN:
 
         display(img)
 
-    def draw_new(fen,orientation='h'):
+    def draw_new(self,orientation='h'):
 
-        img1 = draw_xiangqi_fen(red_bottom(fen))
-        img2 = draw_xiangqi_fen(red_top(fen))
+        img1 = draw_xiangqi_fen(red_bottom(self.fen))
+        img2 = draw_xiangqi_fen(red_top(self.fen))
 
         if orientation=='h':
             # Paste both images side by side
