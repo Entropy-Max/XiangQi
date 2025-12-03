@@ -46,8 +46,8 @@ class FEN:
         fen_rows = []
 
         for row in self.board:
-           fen_row = ''
-           empty = 0
+            fen_row = ''
+            empty = 0
 
             for cell in row:
                 if cell == '.':
