@@ -1,6 +1,3 @@
-from PIL import Image, ImageDraw, ImageFont
-from IPython.display import display
-
 font_path = "/content/BabelStoneXiangqiColour.ttf" # Replace with your font filename
 
 # FEN (Forsyth-Edwards Notation)
