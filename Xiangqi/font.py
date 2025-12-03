@@ -1,10 +1,3 @@
-import os
-import requests
-import shutil
-
-# Download manually 
-#!wget -O BabelStoneXiangqiColour.ttf https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/BabelStoneXiangqiColour.ttf
-
 def font_download(source='github'):
     """Download Font BabelStone Xiangqi Colour"""
     
@@ -21,24 +14,26 @@ def font_download(source='github'):
     with open(file_name, "wb") as f:
         f.write(r.content)
 
-    print("Font downloading......ready")
+    print("Font downloading......done!")
 
 def font_setup():
     """Check font file exists, if not then download"""
 
     file_name = "BabelStoneXiangqiColour.ttf"
 
-    if not os.path.exists(file_name): 
+    # System fonts directory
+    font_files = fm.findSystemFonts()
+    font_names = sorted({os.path.basename(f) for f in font_files})
+
+    if (not file_name in font_names) and (not os.path.exists(file_name)):
         font_download()
        
-    # Activate 
+        # Activate 
+        font_path = "/usr/share/fonts/truetype/BabelStoneXiangqiColour.ttf"
+        shutil.copy(file_name, font_path)
 
-    font_path = "/usr/share/fonts/truetype/BabelStoneXiangqiColour.ttf"
+        os.system('!fc-cache -f -v')
+        os.system('!fc-list :family')
+        os.system('!fc-list :family | grep -i BabelStoneColour')
 
-    shutil.copy(file_name, font_path)
-
-    os.system('!fc-cache -f -v')
-    os.system('!fc-list :family')
-    os.system('!fc-list :family | grep -i BabelStoneColour')
-
-    print("Font setup......ready")
+    print("Font setup......done!")
