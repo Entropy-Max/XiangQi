@@ -99,10 +99,11 @@ def draw_xiangqi_fen(fen):
         (7,7,0xE009),
         (2,3,0xE009),
         (4,3,0xE009),
-    E009),
+        (6,3,0xE009),
+        (2,6,0xE009),
         (4,6,0xE009),
         (6,6,0xE009)
- ]
+    ]
 
     font_piece = ImageFont.truetype(font_path, 48)
 
