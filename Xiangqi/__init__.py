@@ -1,4 +1,6 @@
 import os
+import requests
+import shutil
 import matplotlib.font_manager as fm
 
 from . import font
@@ -8,6 +10,7 @@ from .FEN import draw_xiangqi_fen
 __all__=["draw_xiangqi_fen"]
 
 font.font_setup()
+
 
 
 
