@@ -19,6 +19,12 @@ class FEN:
 
         self.fen = '/'.join(rank[::-1] for rank in ranks)
 
+    def flip_tb(self):
+
+        ranks = self.fen.split('/')
+
+        self.fen = '/'.join(rank for rank in ranks[::-1])
+        
     def flip_case(self):
 
         self.fen = ''.join(ch.lower() if ch.isupper() else ch.upper() if ch.islower() else ch for ch in self.fen)
