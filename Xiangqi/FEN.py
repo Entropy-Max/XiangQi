@@ -56,6 +56,8 @@ def print_xiangqi_fen(fen):
 
 def draw_xiangqi_fen(fen):
 
+    global font_path 
+
     # Board config
     cell_size = 60
     cols, rows = 9, 10
@@ -97,8 +99,7 @@ def draw_xiangqi_fen(fen):
         (7,7,0xE009),
         (2,3,0xE009),
         (4,3,0xE009),
-        (6,3,0xE009),
-        (2,6,0xE009),
+    E009),
         (4,6,0xE009),
         (6,6,0xE009)
  ]
