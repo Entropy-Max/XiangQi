@@ -1,9 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from IPython.display import display
 
-font_path = "/content/BabelStoneXiangqiColour.ttf" # Replace with your font filename
-font_piece = ImageFont.truetype(font_path, 48)
-
 # FEN (Forsyth-Edwards Notation)
 # https://xiangqiboard.com/
 # https://xiangqiboard.com/editor
@@ -106,6 +103,8 @@ def draw_xiangqi_fen(fen):
         (6,6,0xE009)
  ]
 
+    font_path = "/content/BabelStoneXiangqiColour.ttf" # Replace with your font filename
+    font_piece = ImageFont.truetype(font_path, 48)
 
     # Create blank image
     img = Image.new("RGB", (width, height), bg_color)
