@@ -1,6 +1,4 @@
-import os
-import requests
-import shutil
+
 
 from PIL import Image, ImageDraw, ImageFont
 from IPython.display import display
@@ -12,6 +10,7 @@ from .FEN import draw_xiangqi_fen
 __all__=["draw_xiangqi_fen"]
 
 font.font_setup()
+
 
 
 
