@@ -103,7 +103,6 @@ def draw_xiangqi_fen(fen):
         (6,6,0xE009)
  ]
 
-    font_path = "/content/BabelStoneXiangqiColour.ttf" # Replace with your font filename
     font_piece = ImageFont.truetype(font_path, 48)
 
     # Create blank image
