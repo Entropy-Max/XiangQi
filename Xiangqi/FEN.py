@@ -174,8 +174,8 @@ class FEN:
 
     def draw_new(self,orientation='h'):
 
-        img1 = self.draw(self.set_red_bottom(self.fen))
-        img2 = self.draw(self.set_red_top(self.fen))
+        img1 = self.draw(self.set_red_bottom())
+        img2 = self.draw(self.set_red_top())
 
         if orientation=='h':
             # Paste both images side by side
