@@ -54,9 +54,7 @@ def print_xiangqi_fen(fen):
     for r in board:
         print(' '.join(r))
 
-def draw_xiangqi_fen(fen):
-
-    global font_path 
+def draw_xiangqi_fen(fen): 
 
     # Board config
     cell_size = 60
@@ -104,7 +102,8 @@ def draw_xiangqi_fen(fen):
         (4,6,0xE009),
         (6,6,0xE009)
     ]
-
+    
+    font_path = "BabelStoneXiangqiColour.ttf" 
     font_piece = ImageFont.truetype(font_path, 48)
 
     # Create blank image
