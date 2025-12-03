@@ -9,19 +9,64 @@ from IPython.display import display
 class FEN:
     def __init__(self, fen):
         self.fen = fen   # attribute
+        self.board = []
 
     def __str__(self):
         return f"FEN(fen={self.fen})"
 
     def valid(self):
 
-        ranks = self.fen.split('/')
-        if len(ranks)!=10:
+        self._to_matrix()
+        if len(self.boarf)!=10:
             print("10 ranks Expected")
-        for rank in ranks:
+        for rank in board:
             if len(rank)!=9:
                 print(f"9 files expected in rank {rank}")
 
+    def _to_matrix(self):
+
+        fenparts = self.fen.split()
+
+        if len(fenparts)>1:
+            turn_red = fenparts[1].lower() == 'w'
+
+        rows = fenparts[0].split('/')
+
+        for row in rows:
+            expanded_row = []
+            for ch in row:
+                if ch.isdigit():
+                    expanded_row.extend(['.'] * int(ch))  # empty squares
+                else:
+                    expanded_row.append(ch)
+            self.board.append(expanded_row)
+
+    def _from_matrix(self):
+        """Convert a 10×9 Xiangqi board matrix back into a FEN string."""
+        fen_rows = []
+
+        for row in self.board:
+           fen_row = ''
+           empty = 0
+
+            for cell in row:
+                if cell == '.':
+                    empty += 1
+                else:
+                    if empty > 0:
+                        fen_row += str(empty)
+                        empty = 0
+                    fen_row += cell
+
+            # Add any remaining empty squares at the end
+            if empty > 0:
+                fen_row += str(empty)
+
+            fen_rows.append(fen_row)
+
+        self.fen = '/'.join(fen_rows)
+
+    
     def flip_lr(self):
 
         ranks = self.fen.split('/')
