@@ -38,9 +38,6 @@ class FEN:
                 valid = False
                 print(f"Warning: 9 files expected in rank {rank}")
 
-        if valid:
-            print("FEN format valid ......done!") 
-
     def _to_matrix(self):
 
         self.board=[]
