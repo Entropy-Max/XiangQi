@@ -29,12 +29,14 @@ class FEN:
         if len(self.board)!=10:
             valid = False 
             print("10 ranks Expected")
+        
         for rank in self.board:
             if len(rank)!=9:
                 valid = False
                 print(f"9 files expected in rank {rank}")
 
-        print("FEN format valid ......done!") if valid
+        if valid:
+            print("FEN format valid ......done!") 
 
     def _to_matrix(self):
 
