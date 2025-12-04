@@ -8,8 +8,16 @@ from IPython.display import display
 
 class FEN:
     def __init__(self, fen):
-        self.fen = fen   # attribute
+
+        # Supports long format separated by white space 
+        fenparts = fen.split()
+
+        if len(fenparts)>1:
+            self.turn_red = fenparts[1].lower() == 'w'
+
+        self.fen = fenparts[0]   
         self.board = []
+        self._to_matrix()
 
     def __str__(self):
         return f"FEN(fen={self.fen})"
@@ -17,7 +25,7 @@ class FEN:
     def valid(self):
 
         self._to_matrix()
-        if len(self.boarf)!=10:
+        if len(self.board)!=10:
             print("10 ranks Expected")
         for rank in board:
             if len(rank)!=9:
@@ -25,12 +33,9 @@ class FEN:
 
     def _to_matrix(self):
 
-        fenparts = self.fen.split()
+        self.board=[]
 
-        if len(fenparts)>1:
-            turn_red = fenparts[1].lower() == 'w'
-
-        rows = fenparts[0].split('/')
+        rows = self.fen.split('/')
 
         for row in rows:
             expanded_row = []
