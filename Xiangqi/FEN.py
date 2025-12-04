@@ -17,11 +17,11 @@ class FEN:
             self.turn_red = fenparts[1].lower() in ['w','r']
 
         self.fen = fenparts[0]   
-        self.valid()
-        
         self.board = []
         self._to_matrix()
-
+        
+        self.valid()
+          
     def __str__(self):
         return f"FEN(fen={self.fen})"
 
