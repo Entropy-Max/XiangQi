@@ -237,6 +237,7 @@ class FEN:
                     col_idx += 1
 
         display(img)
+        return img
 
     def draw_new(self,orientation='h'):
         self.set_red_top()
