@@ -17,6 +17,8 @@ class FEN:
             self.turn_red = fenparts[1].lower() in ['w','r']
 
         self.fen = fenparts[0]   
+        self.valid()
+        
         self.board = []
         self._to_matrix()
 
@@ -29,12 +31,12 @@ class FEN:
         
         if len(self.board)!=10:
             valid = False 
-            print("10 ranks Expected")
+            print("Warning: 10 ranks Expected")
         
         for rank in self.board:
             if len(rank)!=9:
                 valid = False
-                print(f"9 files expected in rank {rank}")
+                print(f"Warning: 9 files expected in rank {rank}")
 
         if valid:
             print("FEN format valid ......done!") 
