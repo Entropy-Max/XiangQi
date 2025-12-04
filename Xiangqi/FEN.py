@@ -91,7 +91,12 @@ class FEN:
 
         if not self._is_red_top():
             self.fen = self.fen[::-1]
+            
+    def set_red_bottom(self):
 
+        if self._is_red_top():
+            self.fen = self.fen[::-1]
+            
     def _is_red_top(self):
 
         ranks = self.fen.split('/')
