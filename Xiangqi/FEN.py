@@ -12,8 +12,9 @@ class FEN:
         # Supports long format separated by white space 
         fenparts = fen.split()
 
+        self.turn_red = True
         if len(fenparts)>1:
-            self.turn_red = fenparts[1].lower() == 'w'
+            self.turn_red = fenparts[1].lower() in ['w','r']
 
         self.fen = fenparts[0]   
         self.board = []
