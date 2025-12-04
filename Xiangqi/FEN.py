@@ -24,7 +24,6 @@ class FEN:
 
     def valid(self):
 
-        self._to_matrix()
         if len(self.board)!=10:
             print("10 ranks Expected")
         for rank in board:
@@ -90,40 +89,28 @@ class FEN:
 
     def set_red_top(self):
 
+        if not self._is_red_top():
+            self.fen = self.fen[::-1]
+
+    def _is_red_top(self):
+
         ranks = self.fen.split('/')
 
         red_king_rank = next((i for i, r in enumerate(ranks) if 'K' in r), None)
         black_king_rank = next((i for i, r in enumerate(ranks) if 'k' in r), None)
 
-        # Decide which side is on top
+        # Decide whether red side is on top
         if red_king_rank is not None and black_king_rank is not None:
             if red_king_rank < black_king_rank:
-                self.fen = self.fen
+                return True
             else:
-                self.fen = self.fen[::-1]
-        else:
-            print("Could not determine (no kings found).")
-
-    def set_red_bottom(self):
-
-        ranks = self.fen.split('/')
-
-        red_king_rank = next((i for i, r in enumerate(ranks) if 'K' in r), None)
-        black_king_rank = next((i for i, r in enumerate(ranks) if 'k' in r), None)
-
-        # Decide which side is on top
-        if red_king_rank is not None and black_king_rank is not None:
-            if red_king_rank > black_king_rank:
-                self.fen =  self.fen
-            else:
-                self.fen =  self.fen[::-1]
+                return False 
         else:
             print("Could not determine (no kings found).")
 
     def print(self):
 
-        board= fen_to_matrix(self.fen)
-        for r in board:
+        for r in self.board:
             print(' '.join(r))
 
     def draw(self): 
