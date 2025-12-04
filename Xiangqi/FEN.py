@@ -26,7 +26,7 @@ class FEN:
 
         if len(self.board)!=10:
             print("10 ranks Expected")
-        for rank in board:
+        for rank in self.board:
             if len(rank)!=9:
                 print(f"9 files expected in rank {rank}")
 
