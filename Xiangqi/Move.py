@@ -195,7 +195,7 @@ class Move(FEN):
         voice_lib = {}
         for move in unique_moves:
             tts_file = f"{move}.mp3"
-            tts = gTTS(text=move, lang='zh-CN')
+            tts = gTTS(text=move, lang='zh')
             tts.save(tts_file)
             voice_lib[move] = tts_file
 
