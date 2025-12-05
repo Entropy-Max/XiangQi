@@ -3,6 +3,10 @@ from PIL import Image
 from Xiangqi.FEN import FEN
 import re
 
+from gtts import gTTS
+from moviepy.editor import AudioFileClip,VideoFileClip, concatenate_audioclips, CompositeAudioClip, AudioClip
+import numpy as np
+
 red_pieces = '车马炮帅仕相兵'
 black_pieces = '車馬砲将士象卒'
 PIECES = red_pieces + black_pieces
@@ -163,7 +167,9 @@ class Move(FEN):
         self.movesCHN =' '.join(self.movesCHN)
 
 
-    def draw_all(self):
+    def animation(self):
+
+        # .gif
         frames=[]
         for i, fen in enumerate(self.fens):
             img = FEN(fen).draw()
@@ -179,3 +185,38 @@ class Move(FEN):
             duration=2000,   # milliseconds per frame (0.5s)
             loop=0          # loop forever
         )
+
+        moves = self.movesCHN.strip().split()
+
+        # Audio
+
+        unique_moves = list(set(moves))
+
+        voice_lib = {}
+        for move in unique_moves:
+            tts_file = f"{move}.mp3"
+            tts = gTTS(text=move, lang='zh-CN')
+            tts.save(tts_file)
+            voice_lib[move] = tts_file
+
+
+        desired_duration = 2
+
+        audio_clips = []
+
+        for move in moves:
+            tts_clip = AudioFileClip(voice_lib[move])
+
+            if tts_clip.duration < desired_duration:
+                remaining = desired_duration - tts_clip.duration
+                silent_bg = AudioClip(lambda t: np.array([0.0]), duration=remaining)
+                tts_clip = concatenate_audioclips([tts_clip, silent_bg]).set_duration(2)
+            audio_clips.append(tts_clip)
+
+        combined_audio = concatenate_audioclips(audio_clips)
+
+        # combine audio and video
+
+        clip = VideoFileClip("animation.gif")
+        clip = clip.set_audio(combined_audio.set_start(0.3))
+        clip.write_videofile("final_with_voice.mp4", codec="libx264", audio_codec="aac", fps=24)
