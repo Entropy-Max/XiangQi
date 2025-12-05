@@ -1,7 +1,8 @@
-from . import font
-from . import FEN
+from . import font,FEN
+from FEN import FEN
 
 font.font_setup()
+
 
 
 
