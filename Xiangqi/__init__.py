@@ -1,7 +1,8 @@
 from . import font,FEN
-from FEN import FEN
+from Xiangqi.FEN import FEN
 
 font.font_setup()
+
 
 
 
