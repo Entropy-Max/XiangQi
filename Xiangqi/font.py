@@ -23,12 +23,12 @@ def font_download(file_name, source='github'):
         f.write(r.content)
 
     # Activate 
-    font_path = font_path + '/' + file_name
+    this_font_path = font_path + '/' + file_name
     #"/usr/share/fonts/truetype/BabelStoneXiangqiColour.ttf"
    
-    shutil.copy(file_name, font_path)
+    shutil.copy(file_name, this_font_path)
 
-    print(f"Font downloading{file_name}......done!")
+    print(f"Font downloading {file_name} ......done!")
 
 def font_setup():
     """Check font file exists, if not then download"""
