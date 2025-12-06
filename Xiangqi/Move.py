@@ -223,7 +223,7 @@ class Move(FEN):
 
         # subtitles 
         filename="subtitles.srt"
-        with open(filename, "w", encoding="utf-8") as f:
+        with open(filename, "w", encoding="utf-8-sig") as f:
             for i, text in enumerate(self.movesCHN.strip().split()):
                 start_seconds = i * 2
                 end_seconds = start_seconds + 2
