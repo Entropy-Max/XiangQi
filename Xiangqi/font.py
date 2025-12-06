@@ -3,18 +3,18 @@ import os
 import requests
 import shutil
 
-file_name = "BabelStoneXiangqiColour.ttf"
+file_names = ["BabelStoneXiangqiColour.ttf",
+              "minixianqj.ttf"]
 font_path = ""
 
-def font_download(source='github'):
-    """Download Font BabelStone Xiangqi Colour"""
+def font_download(file_name, source='github'):
 
-    global file_name,font_path
+    global font_path
     
     # Download font
 
     if source=='github':
-        url = "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/BabelStoneXiangqiColour.ttf"
+        url = f"https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/{file_name}"
     else: 
         url = "https://www.babelstone.co.uk/Fonts/Download/BabelStoneXiangqiColour.ttf"
 
@@ -28,23 +28,25 @@ def font_download(source='github'):
    
     shutil.copy(file_name, font_path)
 
-    os.system('!fc-cache -f -v')
-    os.system('!fc-list :family')
-    os.system('!fc-list :family | grep -i BabelStoneColour')
-        
-    print("Font downloading......done!")
+    print(f"Font downloading{file_name}......done!")
 
 def font_setup():
     """Check font file exists, if not then download"""
 
-    global file_name,font_path
+    global file_names,font_path
 
     # System fonts directory
     font_files = fm.findSystemFonts()
     font_path = os.path.dirname(font_files[0])
     font_names = sorted({os.path.basename(f) for f in font_files})
 
-    if (not file_name in font_names) and (not os.path.exists(file_name)):
-        font_download()
-       
+    for file_name in file_names:
+        if (not file_name in font_names) and (not os.path.exists(file_name)):
+            font_download(file_name)
+
+    # font register 
+    os.system('!fc-cache -f -v')
+    os.system('!fc-list :family')
+    os.system('!fc-list :family | grep -i BabelStoneColour')
+               
     print("Font setup......done!")
