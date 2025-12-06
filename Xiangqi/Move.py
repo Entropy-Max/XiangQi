@@ -195,7 +195,7 @@ class Move(FEN):
         voice_lib = {}
         for move in unique_moves:
             tts_file = f"{move}.mp3"
-            tts = gTTS(text=move, lang='zh-TW')
+            tts = gTTS(text=move, lang='zh')
             tts.save(tts_file)
             voice_lib[move] = tts_file
 
@@ -224,7 +224,7 @@ class Move(FEN):
         # subtitles 
         filename="subtitles.srt"
         with open(filename, "w", encoding="utf-8") as f:
-            for i, text in enumerate(mo.movesCHN.split()):
+            for i, text in enumerate(self.movesCHN.split()):
                 start_seconds = i * 2
                 end_seconds = start_seconds + 2
 
