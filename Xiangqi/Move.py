@@ -219,7 +219,8 @@ class Move(FEN):
         clip = clip.set_audio(combined_audio.set_start(0.3))
         clip.write_videofile("final_with_voice.mp4", codec="libx264", audio_codec="aac", fps=24)
 
-    def subtitle(self):
+        # subtitles
+        
         filename="subtitles.srt"
         with open(filename, "w", encoding="utf-8-sig") as f:
             for i, text in enumerate(self.movesCHN):
