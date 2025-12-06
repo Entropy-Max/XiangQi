@@ -164,8 +164,6 @@ class Move(FEN):
                 self.turn_red = not self.turn_red
                 continue
 
-        self.movesCHN =' '.join(self.movesCHN)
-
 
     def animation(self):
 
@@ -186,7 +184,7 @@ class Move(FEN):
             loop=0          # loop forever
         )
 
-        moves = self.movesCHN.strip().split()
+        moves = self.movesCHN
 
         # Audio
 
@@ -224,7 +222,7 @@ class Move(FEN):
         # subtitles 
         filename="subtitles.srt"
         with open(filename, "w", encoding="utf-8-sig") as f:
-            for i, text in enumerate(self.movesCHN.strip().split()):
+            for i, text in enumerate(self.movesCHN):
                 start_seconds = i * 2
                 end_seconds = start_seconds + 2
 
