@@ -195,7 +195,7 @@ class Move(FEN):
         voice_lib = {}
         for move in unique_moves:
             tts_file = f"{move}.mp3"
-            tts = gTTS(text=move, lang='zh')
+            tts = gTTS(text=move, lang='zh-TW')
             tts.save(tts_file)
             voice_lib[move] = tts_file
 
@@ -220,3 +220,25 @@ class Move(FEN):
         clip = VideoFileClip("animation.gif")
         clip = clip.set_audio(combined_audio.set_start(0.3))
         clip.write_videofile("final_with_voice.mp4", codec="libx264", audio_codec="aac", fps=24)
+
+        # subtitles 
+        filename="subtitles.srt"
+        with open(filename, "w", encoding="utf-8") as f:
+            for i, text in enumerate(mo.movesCHN.split()):
+                start_seconds = i * 2
+                end_seconds = start_seconds + 2
+
+                start_h = start_seconds // 3600
+                start_m = (start_seconds % 3600) // 60
+                start_s = start_seconds % 60
+
+                end_h = end_seconds // 3600
+                end_m = (end_seconds % 3600) // 60
+                end_s = end_seconds % 60
+
+                f.write(f"{i+1}\n")
+                f.write(f"{start_h:02}:{start_m:02}:{start_s:02},000 --> {end_h:02}:{end_m:02}:{end_s:02},000\n")
+                f.write(f"{text}\n\n")
+
+        import os
+        os.system("ffmpeg -y -i final_with_voice.mp4 -vf subtitles=subtitles.srt output.mp4")
