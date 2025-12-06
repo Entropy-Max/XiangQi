@@ -4,7 +4,7 @@ import requests
 import shutil
 
 file_names = ["BabelStoneXiangqiColour.ttf",
-              "minixianqqi.ttf"]
+              "minixiangqi.ttf"]
 font_path = ""
 
 def font_download(file_name, source='github'):
