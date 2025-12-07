@@ -21,6 +21,7 @@ class UCIEngine:
         self.q = queue.Queue()
         self.reader = threading.Thread(target=self._read_output, daemon=True)
         self.reader.start()
+        print("Engine starts up ...... ready!")
 
     def fairy_setup(self, source="xiangqi"):
             
