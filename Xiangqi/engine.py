@@ -3,7 +3,7 @@ import os
 engine_path = '/content/fairyxq'
 file_name = os.path.basename(engine_path)
 
-def fairy_download(source="xiangqi"):
+def engine_download(source="xiangqi"):
   
     global file_name
   
@@ -18,12 +18,12 @@ def fairy_download(source="xiangqi"):
     
     print("Fairy Stockfish downloading ...... done!")
 
-def fairy_setup()
+def engine_setup()
 
   global engine_path
   
   if not os.path.exists(engine_path):
-      fairy_download()
+      engine_download()
   
   # Make it executable
   os.system("chmod +x {file_name}")
