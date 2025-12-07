@@ -22,6 +22,7 @@ def engine_setup(ENGINE_PATH):
       engine_download(ENGINE_PATH)
   
   # Make it executable
+  file_name = os.path.basename(ENGINE_PATH)
   os.system(f"chmod +x {file_name}")
   print("Fairy Stockfish engine starting up ...... done!")
   
