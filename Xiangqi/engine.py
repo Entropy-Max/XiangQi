@@ -1,6 +1,5 @@
 import os
 import requests
-from Xiangqi import ENGINE_PATH
 
 file_name = os.path.basename(ENGINE_PATH)
 
