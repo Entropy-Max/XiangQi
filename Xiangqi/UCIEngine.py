@@ -37,7 +37,7 @@ class UCIEngine:
                 f.write(r.content)
 
         # Make it executable
-        os.system("!chmod +x {self.fairy_name}")
+        os.system("chmod +x {self.fairy_name}")
         
         print("Fairy Stockfish setup ...... done!")
 
