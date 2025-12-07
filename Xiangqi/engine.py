@@ -1,11 +1,9 @@
 import os
 import requests
 
-file_name = os.path.basename(ENGINE_PATH)
-
-def engine_download(source="xiangqi"):
+def engine_download(ENGINE_PATH, source="xiangqi"):
   
-    global file_name
+    file_name = os.path.basename(ENGINE_PATH)
   
     if source.lower()=='xiangqi':
         url = "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairyxq"
@@ -18,12 +16,10 @@ def engine_download(source="xiangqi"):
     
     print("Fairy Stockfish downloading ...... done!")
 
-def engine_setup():
-
-  global ENGINE_PATH
+def engine_setup(ENGINE_PATH): 
   
   if not os.path.exists(ENGINE_PATH):
-      engine_download()
+      engine_download(ENGINE_PATH)
   
   # Make it executable
   os.system(f"chmod +x {file_name}")
