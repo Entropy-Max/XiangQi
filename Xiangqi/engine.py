@@ -1,7 +1,8 @@
 import os
 import requests
+from Xiangqi import ENGINE_PATH
 
-file_name = os.path.basename(engine_path)
+file_name = os.path.basename(ENGINE_PATH)
 
 def engine_download(source="xiangqi"):
   
@@ -20,9 +21,9 @@ def engine_download(source="xiangqi"):
 
 def engine_setup():
 
-  global engine_path
+  global ENGINE_PATH
   
-  if not os.path.exists(engine_path):
+  if not os.path.exists(ENGINE_PATH):
       engine_download()
   
   # Make it executable
