@@ -18,7 +18,7 @@ def engine_download(source="xiangqi"):
     
     print("Fairy Stockfish downloading ...... done!")
 
-def engine_setup()
+def engine_setup():
 
   global engine_path
   
