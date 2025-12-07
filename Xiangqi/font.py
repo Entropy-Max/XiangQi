@@ -38,6 +38,8 @@ def font_setup():
     # System fonts directory
     font_files = fm.findSystemFonts()
     font_path = os.path.dirname(font_files[0])
+    font_path = font_path.partition("truetype")[0] + "truetype/"
+
     font_names = sorted({os.path.basename(f) for f in font_files})
 
     for file_name in file_names:
