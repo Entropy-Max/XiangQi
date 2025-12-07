@@ -23,24 +23,6 @@ class UCIEngine:
         self.reader.start()
         print("Engine starts up ...... ready!")
 
-    def fairy_setup(self, source="xiangqi"):
-            
-        if not os.path.exists(self.path):
-
-            if source.lower()=='xiangqi':
-                url = "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairyxq"
-            else:
-                url = "https://github.com/fairy-stockfish/Fairy-Stockfish/releases/latest/download/fairy-stockfish-largeboard_x86-64"
-
-            r = requests.get(url)
-            with open(self.fairy_name, "wb") as f:
-                f.write(r.content)
-
-        # Make it executable
-        os.system("chmod +x {self.fairy_name}")
-        
-        print("Fairy Stockfish setup ...... done!")
-
 
     def _read_output(self):
         for line in self.proc.stdout:
