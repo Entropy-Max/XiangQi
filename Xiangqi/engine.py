@@ -1,7 +1,6 @@
 import os
 import requests
 
-engine_path = '/content/fairyxq'
 file_name = os.path.basename(engine_path)
 
 def engine_download(source="xiangqi"):
