@@ -1,11 +1,16 @@
-from . import font,FEN
+from . import font
+from . import FEN
 from Xiangqi.FEN import FEN
+from . import engine
 
 START_FEN = "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r"
 
-__all__ = ["FEN"]
+__all__ = ["FEN","START_FEN"]
 
 font.font_setup()
+
+engine.engine_setup()
+
 
 
 
