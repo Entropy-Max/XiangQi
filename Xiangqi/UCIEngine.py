@@ -3,12 +3,9 @@ import threading
 import queue
 import os
 import requests
-from Xiangqi import ENGINE_PATH
 
 class UCIEngine:
-    def __init__(self):
-        global ENGINE_PATH
-        self.path = ENGINE_PATH
+    def __init__(self, ENGINE_PATH):
 
         self.proc = subprocess.Popen(
             [ENGINE_PATH],
