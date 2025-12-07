@@ -5,13 +5,12 @@ import os
 import requests
 
 class UCIEngine:
-    def __init__(self, path):
-        self.path=path
+    def __init__(self, engine_path):
+        self.path = engine_path
         self.fairy_name=os.path.basename(self.path)
        
-        self.fairy_setup()
         self.proc = subprocess.Popen(
-            [path],
+            [engine_path],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
