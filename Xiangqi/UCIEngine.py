@@ -1,9 +1,15 @@
 import subprocess
 import threading
 import queue
+import os
+import requests
 
 class UCIEngine:
     def __init__(self, path):
+        self.path=path
+        self.fairy_name=os.path.basename(self.path)
+       
+        self.fairy_setup()
         self.proc = subprocess.Popen(
             [path],
             stdin=subprocess.PIPE,
@@ -15,6 +21,25 @@ class UCIEngine:
         self.q = queue.Queue()
         self.reader = threading.Thread(target=self._read_output, daemon=True)
         self.reader.start()
+
+    def fairy_setup(self, source="xiangqi"):
+            
+        if not os.path.exists(self.path):
+
+            if source.lower()=='xiangqi':
+                url = "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairyxq"
+            else:
+                url = "https://github.com/fairy-stockfish/Fairy-Stockfish/releases/latest/download/fairy-stockfish-largeboard_x86-64"
+
+            r = requests.get(url)
+            with open(self.fairy_name, "wb") as f:
+                f.write(r.content)
+
+        # Make it executable
+        os.system("!chmod +x {self.fairy_name}")
+        
+        print("Fairy Stockfish setup ...... done!")
+
 
     def _read_output(self):
         for line in self.proc.stdout:
@@ -43,6 +68,12 @@ class UCIEngine:
         self.write("uci")
         self.read_until("uciok")
 
+        # Start new game
+        self.write("ucinewgame")
+
+        # Set Xiangqi variant if needed
+        self.write("setoption name UCI_Variant value xiangqi")
+        
         # Send multipv
         if multipv > 1:
             self.write(f"setoption name MultiPV value {multipv}")
