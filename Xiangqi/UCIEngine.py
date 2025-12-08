@@ -89,8 +89,8 @@ class UCIEngine:
                     pv_moves = parts[1].split()
 
         return {
-            "bestmove:", bestmove, 
-            "pv:", pv_moves
+            "bestmove": bestmove, 
+            "pv": pv_moves
         }
         
     def multipv(self, fen, depth=10,multipv=1):
