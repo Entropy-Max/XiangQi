@@ -85,7 +85,7 @@ class UCIEngine:
             if " pv " in line:
                 # Example: info depth 10 score cp 34 pv f7e5 e3f5 d9e7 ...
                 parts = line.split(" pv ")
-               .if len(parts) >= 2:
+                if len(parts) >= 2:
                     pv_moves = parts[1].split()
 
         return {
