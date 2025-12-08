@@ -70,23 +70,23 @@ class UCIEngine:
         bestmove = None
         pv_moves = []
 
-        line = self.read_until("bestmove")
+        out  = self.read_until("bestmove")
 
-        # Parse bestmove
-        if line.startswith("bestmove"):
-            parts = line.split()
-            bestmove = parts[1]
-            # Check if there is ponder move
-            if len(parts) >= 4 and parts[2] == "ponder":
-                pv_moves.append(parts[3])
-            break
+        for line in out:
+            # Parse bestmove
+            if line.startswith("bestmove"):
+                parts = line.split()
+                bestmove = parts[1]
+                # Check if there is ponder move
+                if len(parts) >= 4 and parts[2] == "ponder":
+                    pv_moves.append(parts[3])
 
-        # Parse PV from info lines
-        if " pv " in line:
-            # Example: info depth 10 score cp 34 pv f7e5 e3f5 d9e7 ...
-            parts = line.split(" pv ")
-            if len(parts) >= 2:
-                pv_moves = parts[1].split()
+            # Parse PV from info lines
+            if " pv " in line:
+                # Example: info depth 10 score cp 34 pv f7e5 e3f5 d9e7 ...
+                parts = line.split(" pv ")
+               .if len(parts) >= 2:
+                    pv_moves = parts[1].split()
 
         return {
             "bestmove:", bestmove, 
