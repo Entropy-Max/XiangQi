@@ -41,7 +41,62 @@ class UCIEngine:
                 break
         return lines
 
-    def analyze(self, fen, depth=10, multipv=1):
+    def bestmove(self, fen, depth=10):
+        """
+        Analyze a Xiangqi position given by a FEN string.
+        Returns the engine's best move and principal variation (PV).
+
+        :param fen: str, Xiangqi FEN string
+        :param depth: int, search depth
+        :return: tuple (bestmove, pv) where pv is a list of moves in UCI format
+        """
+        
+        # Init
+        self.write("uci")
+        self.read_until("uciok")
+
+        # Start new game
+        self.write("ucinewgame")
+
+        # Set Xiangqi variant if needed
+        self.write("setoption name UCI_Variant value xiangqi")
+        
+        # Load position
+        self.write(f"position fen {fen}")
+
+        # Ask engine to search
+        self.write(f"go depth {depth}")
+
+        bestmove = None
+        pv_moves = []
+
+        while True:
+            line = engine.stdout.readline().strip()
+            if not line:
+                continue
+
+            # Parse bestmove
+            if line.startswith("bestmove"):
+                parts = line.split()
+                bestmove = parts[1]
+                # Check if there is ponder move
+                if len(parts) >= 4 and parts[2] == "ponder":
+                    pv_moves.append(parts[3])
+                break
+
+            # Parse PV from info lines
+            if " pv " in line:
+                # Example: info depth 10 score cp 34 pv f7e5 e3f5 d9e7 ...
+                parts = line.split(" pv ")
+                if len(parts) >= 2:
+                    pv_moves = parts[1].split()
+
+        return {
+            "bestmove:", bestmove, 
+            "pv:", pv_moves
+        }
+        
+    def multipv(self, fen, depth=10,multipv=1):
         """Return {bestmove, pv_list}."""
 
         # Init
