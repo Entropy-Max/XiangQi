@@ -74,8 +74,6 @@ class MoveCHN(FEN):
         self.piece_counts = {}
         self.piece_moves = {} # piece move history dict      
         self.init_piece_moves()
-        self.moves_etc()
-
 
     def init_piece_moves(self):
         """
