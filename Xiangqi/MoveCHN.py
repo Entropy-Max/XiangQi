@@ -274,7 +274,7 @@ class MoveCHN(FEN):
                 if pid == moved_pid:
                     continue
                 if path and path != 0 and path[-1] == (tr, tc):
-                    self.piece_moves[pid].append(('#','#'))
+                    self.piece_moves[pid].append(('###'))
                     if verbose:
                         print(f"💥 '{captured}' captured by '{mover}' at {(tr, tc)}!")
                     break
@@ -438,14 +438,18 @@ class MoveCHN(FEN):
 
         print("Moves per piece:")
         for pid, moves in self.piece_moves.items():
-            num_moves = max(0, len(moves) - 1)  # subtract initial position
             side = "Red" if pid[0].isupper() else "Black"
-
-            print(f"{pid} ({side}): {num_moves} move(s)")
-
-            if side == "Red":
-                red_moves += num_moves
+            last_move = moves[-1]
+            if last_move == "###":
+                num_moves = max(0, len(moves) - 2)
             else:
-                black_moves += num_moves
+                num_moves = max(0, len(moves) - 1) # subtract initial position
+
+                if side == "Red":
+                    red_moves += num_moves
+                else:
+                    black_moves += num_moves
+            
+            print(f"{pid} ({side}): {num_moves} move(s)")
 
         print(f"\nTotal moves — Red: {red_moves}, Black: {black_moves}")
