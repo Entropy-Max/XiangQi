@@ -302,49 +302,49 @@ class MoveCHN(FEN):
             board: Current board state (2D list or array)
             text: Multiline text containing rounds like '1. 炮二平五，马２进３'
             
-    Returns:
+        Returns:
         
-    """
+        """
 
-    # Parse rounds
-    lines = text.strip().split('\n')
-    rounds = []
-    for line in lines:
-        if not line.strip():
-            continue
-        try:
-            num_part, moves_part = line.split('.', 1)
-            round_num = int(num_part.strip())
-            import re
-            moves = [m.strip() for m in re.split(r'[，,\s]{1,}', moves_part.strip()) if m.strip()]
-            red_move = moves[0]
-            black_move = moves[1] if len(moves) > 1 else None
-            rounds.append((round_num, red_move, black_move))
-        except Exception as e:
-            print(f"⚠️ Skipping malformed line '{line}': {e}")
-            continue
-
-    # Apply all rounds using parse_move_to_positions()
-    for round_num, red_move, black_move in rounds:
-        print(f"\n=== Round {round_num} ===")
-
-        # 🔴 RED move
-        try:
-            fen = self.apply_move(red_move, side='red', verbose=True)
-        except Exception as e:
-            print(f"❌ Red move '{red_move}' failed: {e}")
-
-        # ⚫ BLACK move
-        if black_move:
+        # Parse rounds
+        lines = text.strip().split('\n')
+        rounds = []
+        for line in lines:
+            if not line.strip():
+                continue
             try:
-                fen = self.apply_move(black_move, side='black', verbose=True)
+                num_part, moves_part = line.split('.', 1)
+                round_num = int(num_part.strip())
+                import re
+                moves = [m.strip() for m in re.split(r'[，,\s]{1,}', moves_part.strip()) if m.strip()]
+                red_move = moves[0]
+                black_move = moves[1] if len(moves) > 1 else None
+                rounds.append((round_num, red_move, black_move))
             except Exception as e:
-                print(f"❌ Black move '{black_move}' failed: {e}")
-        else:
-            print("⚠️  No black move in this round.")
+                print(f"⚠️ Skipping malformed line '{line}': {e}")
+                continue
 
-    print("\nFinal FEN:", self.fen)
-    return
+        # Apply all rounds using parse_move_to_positions()
+        for round_num, red_move, black_move in rounds:
+            print(f"\n=== Round {round_num} ===")
+
+            # 🔴 RED move
+            try:
+                self.apply_move(red_move, side='red', verbose=True)
+            except Exception as e:
+                print(f"❌ Red move '{red_move}' failed: {e}")
+
+            # ⚫ BLACK move
+            if black_move:
+                try:
+                    self.apply_move(black_move, side='black', verbose=True)
+                except Exception as e:
+                    print(f"❌ Black move '{black_move}' failed: {e}")
+            else:
+                print("⚠️  No black move in this round.")
+
+        print("\nFinal FEN:", self.fen)
+        return
 
     def moves_print(self, pieces='all'):
         if pieces=='all':
