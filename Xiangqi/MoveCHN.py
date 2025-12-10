@@ -217,13 +217,11 @@ class MoveCHN(FEN):
         except Exception as e:
             if verbose:
                 print(f"❌ Could not parse move '{move}': {e}")
-                self._from_matrix()
             return 
 
         if not res:
             if verbose:
                 print(f"⚠️  Move '{move}' could not be understood — perhaps ambiguous or illegal.")
-                self._from_matrix()
             return 
 
         (sr, sc), (tr, tc) = res
@@ -231,7 +229,6 @@ class MoveCHN(FEN):
         if not (0 <= tr < 10 and 0 <= tc < 9):
             if verbose:
                 print(f"🚫 Target out of bounds for move '{move}': {(tr, tc)}")
-                self._from_matrix()
             return 
 
         mover = self.board[sr][sc]
@@ -240,7 +237,6 @@ class MoveCHN(FEN):
         if mover == '.':
             if verbose:
                 print(f"❌ No piece at start square {sr, sc} for move '{move}'.")
-                self._from_matrix()
             return 
 
         # move the piece
@@ -278,7 +274,7 @@ class MoveCHN(FEN):
                 if pid == moved_pid:
                     continue
                 if path and path != 0 and path[-1] == (tr, tc):
-                    self.piece_moves[pid].append('Captured!')
+                    self.piece_moves[pid]=(0,0)
                     if verbose:
                         print(f"💥 '{captured}' captured by '{mover}' at {(tr, tc)}!")
                     break
