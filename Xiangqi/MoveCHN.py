@@ -90,7 +90,7 @@ class MoveCHN(FEN):
                 self.piece_moves[pid] = [(r, c)]
     
 
-    def parse_move_to_positions(move, side='auto'):
+    def parse_move_to_positions(self, move, side='auto'):
 
         move = move.replace(' ', '')
         if len(move) != 4:
@@ -118,7 +118,7 @@ class MoveCHN(FEN):
 
         # auto-detect side if requested
         if side == 'auto':
-            if piece in second in chinese_nums or fourth in chinese_nums:
+            if second in chinese_nums or fourth in chinese_nums:
                 side = 'red'
             else:
                 side = 'black'
@@ -129,7 +129,7 @@ class MoveCHN(FEN):
         mapped = mapped.upper() if side == 'red' else mapped.lower()
 
         # all positions for that piece
-        positions = [(r, c) for r, row in enumerate(board) for c, cell in enumerate(row) if cell == mapped]
+        positions = [(r, c) for r, row in enumerate(self.board) for c, cell in enumerate(row) if cell == mapped]
         if not positions:
             raise ValueError(f"No piece {piece} ({mapped}) found on board.")
 
@@ -204,7 +204,7 @@ class MoveCHN(FEN):
         return (sr, sc), (tr, tc)
 
 
-    def apply_move(move, side='auto', verbose=True):
+    def apply_move(self, move, side='auto', verbose=True):
         """
         Apply move, update piece_moves (append for mover, set captured piece to 0).
         Returns new_board, new_fen, new_piece_moves.
