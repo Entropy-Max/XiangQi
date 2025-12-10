@@ -291,7 +291,7 @@ class MoveCHN(FEN):
             print(f"✅ Move applied: {move} | {mover} from {(sr, sc)} → {(tr, tc)}")
             print(f"   New FEN: {self.fen}")
 
-    return
+        return
 
 
     def moves_seq(text):
