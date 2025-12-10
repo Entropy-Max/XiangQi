@@ -269,7 +269,7 @@ class MoveCHN(FEN):
 
         # update path
         if self.piece_moves[moved_pid] == 0:
-            self piece_moves[moved_pid] = [(tr, tc)]
+            self.piece_moves[moved_pid] = [(tr, tc)]
         else:
             self.piece_moves[moved_pid].append((tr, tc))
 
