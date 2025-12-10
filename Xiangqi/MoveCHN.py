@@ -212,7 +212,7 @@ class MoveCHN(FEN):
         """
 
         try:
-            res = parse_move_to_positions(move, side)
+            res = self.parse_move_to_positions(move, side)
         except Exception as e:
             if verbose:
                 print(f"❌ Could not parse move '{move}': {e}")
