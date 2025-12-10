@@ -278,6 +278,9 @@ class FEN:
         moves = self.movesCHN
 
         # Audio
+        from gtts import gTTS
+        from moviepy.editor import AudioFileClip,VideoFileClip, concatenate_audioclips, CompositeAudioClip, AudioClip
+        import numpy as np
 
         unique_moves = list(set(moves))
 
