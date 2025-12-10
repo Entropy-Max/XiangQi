@@ -292,7 +292,7 @@ class MoveCHN(FEN):
         return
 
 
-    def moves_seq():
+    def moves_seq(self):
         """
         Apply a full Xiangqi move list (in standard Chinese notation) to a board.
 
