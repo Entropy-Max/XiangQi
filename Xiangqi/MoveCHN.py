@@ -274,7 +274,7 @@ class MoveCHN(FEN):
                 if pid == moved_pid:
                     continue
                 if path and path != 0 and path[-1] == (tr, tc):
-                    self.piece_moves[pid]=(0,0)
+                    self.piece_moves[pid].append(('#','#'))
                     if verbose:
                         print(f"💥 '{captured}' captured by '{mover}' at {(tr, tc)}!")
                     break
