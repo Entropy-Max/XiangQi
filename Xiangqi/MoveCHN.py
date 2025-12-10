@@ -85,9 +85,9 @@ class MoveCHN(FEN):
                 if cell == '.':
                     continue
                 count = self.piece_counts.get(cell, 0) + 1
-            self.piece_counts[cell] = count
-            pid = f"{cell}{count}"  # e.g. R1, R2, N1, n2
-            self.piece_moves[pid] = [(r, c)]
+                self.piece_counts[cell] = count
+                pid = f"{cell}{count}"  # e.g. R1, R2, N1, n2
+                self.piece_moves[pid] = [(r, c)]
     
 
     def parse_move_to_positions(move, side='auto'):
