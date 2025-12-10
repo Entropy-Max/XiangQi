@@ -292,7 +292,7 @@ class MoveCHN(FEN):
         return
 
 
-    def moves_seq(text):
+    def moves_seq():
         """
         Apply a full Xiangqi move list (in standard Chinese notation) to a board.
 
@@ -305,7 +305,7 @@ class MoveCHN(FEN):
         """
 
         # Parse rounds
-        lines = text.strip().split('\n')
+        lines = self.movesCHN.strip().split('\n')
         rounds = []
         for line in lines:
             if not line.strip():
