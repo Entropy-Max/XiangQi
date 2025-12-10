@@ -3,10 +3,6 @@ from collections import defaultdict
 from Xiangqi.FEN import FEN
 import re
 
-from gtts import gTTS
-from moviepy.editor import AudioFileClip,VideoFileClip, concatenate_audioclips, CompositeAudioClip, AudioClip
-import numpy as np
-
 red_pieces = '车马炮帅仕相兵'
 black_pieces = '車馬砲将士象卒'
 PIECES = red_pieces + black_pieces
