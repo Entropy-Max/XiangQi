@@ -70,7 +70,7 @@ class MoveCHN(FEN):
     def __init__(self,fen,moves):
         super().__init__(fen)
         self.moves=moves
-        self.movesCHN=""
+        self.movesCHN=[]
         self.fens=[self.fen]
         self.piece_counts = {}
         self.piece_moves = {} # piece move history dict      
