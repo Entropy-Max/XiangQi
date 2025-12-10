@@ -180,7 +180,7 @@ class FEN:
         font_piece = ImageFont.truetype(font_path, 48)
 
         # Create blank image
-        img = Image.new("RGB", (width, height), bg_color)
+        img = Image.new("RGB", (width, height + cell_size), bg_color)
         draw = ImageDraw.Draw(img)
 
         # Grid lines
