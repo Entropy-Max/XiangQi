@@ -13,10 +13,11 @@ class UCIEngine:
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             universal_newlines=True,
+            text=False,
             bufsize=1
         )
         self.q = queue.Queue()
-        self.reader = threading.Thread(target=self._read_output, daemon=True)
+        self.reader = threading.Thread(target=self.read, daemon=True)
         self.reader.start()
         print("Engine starts up ...... ready!")
 
