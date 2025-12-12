@@ -29,7 +29,7 @@ class UCIEngine:
         self.write("setoption name UCI_Variant value xiangqi")
 
         self.write("isready")
-        self.read("readyok")
+        self.read_until("readyok")
 
     def write(self, cmd):
         if isinstance(cmd, bytes):
