@@ -181,6 +181,7 @@ class UCIEngine:
         self.proc.terminate()
     
     def _nnue_eval_fen(self, fen, timeout=1.0):
+        self.write("ucinewgame")
         self.write(f"position fen {fen}")
         self.write("eval")
 
@@ -214,5 +215,5 @@ class UCIEngine:
         score=[]
         for fen in fens:
             score.append(self._nnue_eval_fen(fen))
-
+        
         return score
