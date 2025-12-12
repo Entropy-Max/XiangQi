@@ -13,7 +13,7 @@ class UCIEngine:
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
            # universal_newlines=True,
-            text=False,
+            text=True,
             bufsize=1
         )
         self.q = queue.Queue()
@@ -33,9 +33,9 @@ class UCIEngine:
 
     def write(self, cmd):
         if isinstance(cmd, bytes):
-            data = cmd
+            data = cmd.decode()
         else:
-            data = (cmd + "\n").encode()
+            data = (cmd + "\n")
         self.proc.stdin.write(data)
         self.proc.stdin.flush()
     
@@ -181,27 +181,26 @@ class UCIEngine:
         self.write("eval")
     
         # Read until we get a score
-        lines = self.read()
+        lines = self.read_until("Final")
     
         # Look for a line containing NNUE score
         for line in lines:
-            if "NNUE" in line and "evaluation" in line:
-                # Example line: "NNUE evaluation: +23"
+            if "Final" in line and "evaluation" in line:
+                # Example line: "Final evaluation: +23"
                 parts = line.split(":")
                 score = parts[1].strip()
                 return score
 
-            # Some engines output: "Eval: <centipawns>"
-            if "Centipawn" in line:
-                return line.split()[-1]
-
         return None  # if nothing found
 
     def nnue(self, fens):
-        self.write("setoption name EvalFile value /xiangqi-c07e94a5c7cb.nnue")
+        self.write("setoption name EvalFile value ./xiangqi-c07e94a5c7cb.nnue")
+        self.write("isready")
+        self.read("readyok")
+        
         score=[]
         for fen in fens:
             score.append(self._nnue_eval_fen(fen))
 
-
+        return score
 
