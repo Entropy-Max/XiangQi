@@ -115,16 +115,9 @@ class UCIEngine:
     def multipv(self, fen, depth=10,multipv=1):
         """Return {bestmove, pv_list}."""
 
-        # Init
-        self.write("uci")
-        self.read_until("uciok")
-
         # Start new game
         self.write("ucinewgame")
 
-        # Set Xiangqi variant if needed
-        self.write("setoption name UCI_Variant value xiangqi")
-        
         # Send multipv
         if multipv > 1:
             self.write(f"setoption name MultiPV value {multipv}")
@@ -180,47 +173,18 @@ class UCIEngine:
         self.write("quit")
         self.proc.terminate()
     
-    def _nnue_eval_fen(engine, fen):
-        engine.write(f"position fen '{fen}'")
-        engine.write("eval")
-        output = engine.read_until("Final")
+    def _nnue_eval_fen(self, fen):
+
+        self.write(f"position fen '{fen}'")
+        self.write("eval")
+        output = self.read_until("Final")
         import re
         m = re.search(r"Final evaluation\s+([+-]?\d+\.?\d*)", output)
         return float(m.group(1)) if m else None
 
 
-    def _nnue_eval_fen2(self, fen, timeout=1.0):
-        self.write("ucinewgame")
-        self.write(f"position fen {fen}")
-        self.write("eval")
-
-        import time
-        start = time.time()
-        lines = []
-
-        while time.time() - start < timeout:
-            try:
-                line = self.q.get(timeout=0.1)
-            except queue.Empty:
-                continue
-            if isinstance(line, bytes):
-                line = line.decode(errors="ignore")
-            line = line.strip()
-            lines.append(line)
-            #print("DEBUG:", line)
-
-        # Match lines starting with Final evaluation
-        for line in lines:
-            if line.startswith("Final evaluation"):
-                # Extract first signed float (e.g. +1.46, -0.87)
-                m = re.search(r'[-+]?\d+\.\d+', line)
-                if m:
-                    return float(m.group(0))
-
-        return None
-
     def nnue(self, fens):
-        
+        self.write("ucinewgame")
         score=[]
         for fen in fens:
             score.append(self._nnue_eval_fen(fen))
