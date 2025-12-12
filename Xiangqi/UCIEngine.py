@@ -189,11 +189,13 @@ class UCIEngine:
     
         # Look for a line containing NNUE score
         for line in lines:
+            print(f"Debug: {line}")
             if "Final" in line and "evaluation" in line:
                 # Example line: "Final evaluation: +23"
                 parts = line.split(":")
-                score = parts[1].strip()
-                return score
+                if len(parts)>=2:
+                    score = parts[1].strip()
+                    return score
 
         return None  # if nothing found
 
