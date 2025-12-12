@@ -28,16 +28,23 @@ class UCIEngine:
         self.write("setoption name UCI_Variant value xiangqi")
 
         self.write("isready")
-        self._read_output("readyok")
-    
-        
-    def _read_output(self):
-        for line in self.proc.stdout:
-            self.q.put(line.decode().strip())
+        self.read("readyok")
 
     def write(self, cmd):
+        self.proc.stdin.write((cmd + "\n"))
+        self.proc.stdin.flush()
+
+    def write_encoded(self, cmd):
         self.proc.stdin.write((cmd + "\n").encode())
         self.proc.stdin.flush()
+        
+    def read_decoded(self):
+        for line in self.proc.stdout:
+            self.q.put(line.decode().strip())
+        
+    def read(self):
+        for line in self.proc.stdout:
+            self.q.put(line.decode().strip())
 
     def read_until(self, keyword):
         lines = []
@@ -166,11 +173,11 @@ class UCIEngine:
     
     def _nnue_eval_fen(self, fen):
         # Set the position
-        self.write(f"position fen {fen}")
+        self.write_encoded(f"position fen {fen}")
         self.write("eval")
     
         # Read until we get a score
-        lines = self._read_output()
+        lines = self.read_decoded()
     
         # Look for a line containing NNUE score
         for line in lines:
