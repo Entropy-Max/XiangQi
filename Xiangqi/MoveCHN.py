@@ -320,7 +320,7 @@ class MoveCHN(Move):
 
             # 🔴 RED move
             try:
-                self.apply_move(red_move, side='red', verbose=True)
+                self._apply_move(red_move, side='red', verbose=True)
                 self.movesCHN.append(red_move)
             except Exception as e:
                 print(f"❌ Red move '{red_move}' failed: {e}")
@@ -328,7 +328,7 @@ class MoveCHN(Move):
             # ⚫ BLACK move
             if black_move:
                 try:
-                    self.apply_move(black_move, side='black', verbose=True)
+                    self._apply_move(black_move, side='black', verbose=True)
                     self.movesCHN.append(black_move)
                 except Exception as e:
                     print(f"❌ Black move '{black_move}' failed: {e}")
