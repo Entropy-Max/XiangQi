@@ -199,7 +199,10 @@ class UCIEngine:
         self.write(f"position fen '{fen}'")
         self.write("eval")
         output= self.read_until("Final")
-        return output 
+        output = "\n".join(output)
+        import re
+        m = re.search(r"Final evaluation\s+([+-]?\d+\.?\d*)", output)
+        return float(m.group(1)) if m else None 
 
 
     def eval(self, fens):
