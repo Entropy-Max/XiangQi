@@ -14,7 +14,7 @@ class UCIEngine:
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-           # universal_newlines=True,
+            universal_newlines=True,
             text=True,
             bufsize=1
         )
@@ -65,7 +65,7 @@ class UCIEngine:
             lines.append(line)
             if keyword in line:
                 break
-        return lines
+        return "\n".join(lines)
 
     def bestmove(self, fen, depth=10):
         """
