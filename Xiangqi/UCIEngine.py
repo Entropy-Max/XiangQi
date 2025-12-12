@@ -20,7 +20,17 @@ class UCIEngine:
         self.reader.start()
         print("Engine starts up ...... ready!")
 
+        # Init
+        self.write("uci")
+        self.read_until("uciok")
+        
+        # Set Xiangqi variant if needed
+        self.write("setoption name UCI_Variant value xiangqi")
 
+        self.write("isready")
+        self.read_until("readyok")
+    
+        
     def _read_output(self):
         for line in self.proc.stdout:
             self.q.put(line.strip())
@@ -51,16 +61,9 @@ class UCIEngine:
         :return: tuple (bestmove, pv) where pv is a list of moves in UCI format
         """
         
-        # Init
-        self.write("uci")
-        self.read_until("uciok")
-
         # Start new game
         self.write("ucinewgame")
 
-        # Set Xiangqi variant if needed
-        self.write("setoption name UCI_Variant value xiangqi")
-        
         # Load position
         self.write(f"position fen {fen}")
 
@@ -157,5 +160,36 @@ class UCIEngine:
         }
 
     def close(self):
+        # Quit engine
         self.write("quit")
         self.proc.terminate()
+    
+    def _nnue_eval_fen(self, fen):
+        # Set the position
+        self.write(f"position fen {fen}")
+        self.write("eval")
+    
+        # Read until we get a score
+        lines = self._read_output()
+    
+        # Look for a line containing NNUE score
+        for line in lines:
+            if "NNUE" in line and "evaluation" in line:
+                # Example line: "NNUE evaluation: +23"
+                parts = line.split(":")
+                score = parts[1].strip()
+                return score
+
+            # Some engines output: "Eval: <centipawns>"
+            if "Centipawn" in line:
+                return line.split()[-1]
+
+        return None  # if nothing found
+
+    def nnue(self, fens):
+        score=[]
+        for fen in fens:
+            score.append(self._nnue_eval_fen(fen))
+
+
+
