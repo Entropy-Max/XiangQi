@@ -196,7 +196,7 @@ class UCIEngine:
     def nnue(self, fens):
         self.write("setoption name EvalFile value ./xiangqi-c07e94a5c7cb.nnue")
         self.write("isready")
-        self.read("readyok")
+        self.read_until("readyok")
         
         score=[]
         for fen in fens:
