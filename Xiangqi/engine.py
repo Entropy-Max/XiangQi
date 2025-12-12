@@ -1,7 +1,8 @@
 import os
 import requests
+from Xiangqi import *
 
-def engine_download(ENGINE_PATH, source="xiangqi"):
+def _engine_download(ENGINE_PATH, source="xiangqi"):
   
     file_name = os.path.basename(ENGINE_PATH)
   
@@ -19,10 +20,11 @@ def engine_download(ENGINE_PATH, source="xiangqi"):
 def engine_setup(ENGINE_PATH): 
   
   if not os.path.exists(ENGINE_PATH):
-      engine_download(ENGINE_PATH)
+      _engine_download(ENGINE_PATH)
   
   # Make it executable
   file_name = os.path.basename(ENGINE_PATH)
   os.system(f"chmod +x {file_name}")
+  
   print("Fairy Stockfish engine starting up ...... done!")
   
