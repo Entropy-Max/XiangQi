@@ -10,19 +10,19 @@ class FEN:
     def __init__(self, fen):
 
         # Supports long format separated by white space 
-        fenparts = fen.split()
+        fenparts = fen.strip().split()
 
         self.turn_red = True
         if len(fenparts)>1:
             self.turn_red = fenparts[1].lower() in ['w','r']
 
         self.fen = fenparts[0]   
+        self.fens=[self.fen]
+        
         self.board = []
         self._to_matrix()
-        
         self.valid()
-        self.fens=[self.fen]
-          
+      
     def __str__(self):
         return f"FEN(fen={self.fen})"
 
@@ -254,85 +254,4 @@ class FEN:
             new_img.paste(img1, (0, 0))
             new_img.paste(img2, (0, img1.height))
 
-        display(new_img)
-
-    def animation(self):
-
-        # .gif
-        frames=[]
-        for i, fen in enumerate(self.fens):
-            img = FEN(fen).draw()
-            frames.append(img)
-
-        import glob
-
-        # save as gif
-        frames[0].save(
-            "animation.gif",
-            save_all=True,
-            append_images=frames[1:],
-            duration=2000,   # milliseconds per frame (0.5s)
-            loop=0          # loop forever
-        )
-
-        moves = self.movesCHN
-
-        # Audio
-        from gtts import gTTS
-        from moviepy.editor import AudioFileClip,VideoFileClip, concatenate_audioclips, CompositeAudioClip, AudioClip
-        import numpy as np
-
-        unique_moves = list(set(moves))
-
-        voice_lib = {}
-        for move in unique_moves:
-            tts_file = f"{move}.mp3"
-            tts = gTTS(text=move, lang='zh')
-            tts.save(tts_file)
-            voice_lib[move] = tts_file
-
-
-        desired_duration = 2
-
-        audio_clips = []
-
-        for move in moves:
-            tts_clip = AudioFileClip(voice_lib[move])
-
-            if tts_clip.duration < desired_duration:
-                remaining = desired_duration - tts_clip.duration
-                silent_bg = AudioClip(lambda t: np.array([0.0]), duration=remaining)
-                tts_clip = concatenate_audioclips([tts_clip, silent_bg]).set_duration(2)
-            audio_clips.append(tts_clip)
-
-        combined_audio = concatenate_audioclips(audio_clips)
-
-        # combine audio and video
-
-        clip = VideoFileClip("animation.gif")
-        clip = clip.set_audio(combined_audio.set_start(0.3))
-        clip.write_videofile("final_with_voice.mp4", codec="libx264", audio_codec="aac", fps=24)
-
-        # subtitles
-        
-        filename="subtitles.srt"
-        with open(filename, "w", encoding="utf-8-sig") as f:
-            for i, text in enumerate(self.movesCHN):
-                start_seconds = i * 2
-                end_seconds = start_seconds + 2
-
-                start_h = start_seconds // 3600
-                start_m = (start_seconds % 3600) // 60
-                start_s = start_seconds % 60
-
-                end_h = end_seconds // 3600
-                end_m = (end_seconds % 3600) // 60
-                end_s = end_seconds % 60
-
-                f.write(f"{i+1}\n")
-                f.write(f"{start_h:02}:{start_m:02}:{start_s:02},000 --> {end_h:02}:{end_m:02}:{end_s:02},000\n")
-                f.write(f"{text}\n\n")
-
-        import os
-        os.system("ffmpeg -y -i final_with_voice.mp4 -vf subtitles=subtitles.srt output.mp4")
-        
+        display(new_img)        
