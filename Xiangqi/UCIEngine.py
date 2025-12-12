@@ -180,7 +180,16 @@ class UCIEngine:
         self.write("quit")
         self.proc.terminate()
     
-    def _nnue_eval_fen(self, fen, timeout=1.0):
+    def _nnue_eval_fen(engine, fen):
+        engine.write(f"position fen '{fen}'")
+        engine.write("eval")
+        output = engine.read_until("Final")
+        import re
+        m = re.search(r"Final evaluation\s+([+-]?\d+\.?\d*)", output)
+        return float(m.group(1)) if m else None
+
+
+    def _nnue_eval_fen2(self, fen, timeout=1.0):
         self.write("ucinewgame")
         self.write(f"position fen {fen}")
         self.write("eval")
