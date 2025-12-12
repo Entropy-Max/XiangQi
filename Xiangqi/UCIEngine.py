@@ -65,7 +65,7 @@ class UCIEngine:
             lines.append(line)
             if keyword in line:
                 break
-        return "\n".join(lines)
+        return lines
 
     def bestmove(self, fen, depth=10):
         """
@@ -177,7 +177,8 @@ class UCIEngine:
 
         self.write(f"position fen '{fen}'")
         self.write("eval")
-        output = self.read_until("Final")
+        output= self.read_until("Final")
+        output = "\n".join(output)
         import re
         m = re.search(r"Final evaluation\s+([+-]?\d+\.?\d*)", output)
         return float(m.group(1)) if m else None
