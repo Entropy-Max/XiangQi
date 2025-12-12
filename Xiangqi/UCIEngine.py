@@ -3,9 +3,10 @@ import threading
 import queue
 import os
 import requests
+from Xiangqi import *
 
 class UCIEngine:
-    def __init__(self, ENGINE_PATH):
+    def __init__(self, ENGINE_PATH, NNUE_PATH):
 
         self.proc = subprocess.Popen(
             [ENGINE_PATH],
@@ -27,7 +28,10 @@ class UCIEngine:
         
         # Set Xiangqi variant if needed
         self.write("setoption name UCI_Variant value xiangqi")
+        self.write("isready")
+        self.read_until("readyok")
 
+        self.write(f"setoption name EvalFile value {NNUE_PATH}")
         self.write("isready")
         self.read_until("readyok")
 
@@ -194,9 +198,6 @@ class UCIEngine:
         return None  # if nothing found
 
     def nnue(self, fens):
-        self.write("setoption name EvalFile value ./xiangqi-c07e94a5c7cb.nnue")
-        self.write("isready")
-        self.read_until("readyok")
         
         score=[]
         for fen in fens:
