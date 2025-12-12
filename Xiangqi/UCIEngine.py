@@ -12,7 +12,7 @@ class UCIEngine:
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            universal_newlines=True,
+           # universal_newlines=True,
             text=False,
             bufsize=1
         )
