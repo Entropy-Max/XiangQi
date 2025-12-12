@@ -1,6 +1,7 @@
 import subprocess
 import threading
 import queue
+import re
 import os
 import requests
 from Xiangqi import *
@@ -179,25 +180,34 @@ class UCIEngine:
         self.write("quit")
         self.proc.terminate()
     
-    def _nnue_eval_fen(self, fen):
-        # Set the position
+    def _nnue_eval_fen(self, fen, timeout=1.0):
         self.write(f"position fen {fen}")
         self.write("eval")
-    
-        # Read until we get a score
-        lines = self.read_until("Final")
-    
-        # Look for a line containing NNUE score
-        for line in lines:
-            print(f"Debug: {line}")
-            if "Final" in line and "evaluation" in line:
-                # Example line: "Final evaluation: +23"
-                parts = line.split(":")
-                if len(parts)>=2:
-                    score = parts[1].strip()
-                    return score
 
-        return None  # if nothing found
+        import time
+        start = time.time()
+        lines = []
+
+        while time.time() - start < timeout:
+            try:
+                line = self.q.get(timeout=0.1)
+            except queue.Empty:
+                continue
+            if isinstance(line, bytes):
+                line = line.decode(errors="ignore")
+            line = line.strip()
+            lines.append(line)
+            #print("DEBUG:", line)
+
+        # Match lines starting with Final evaluation
+        for line in lines:
+            if line.startswith("Final evaluation"):
+                # Extract first signed float (e.g. +1.46, -0.87)
+                m = re.search(r'[-+]?\d+\.\d+', line)
+                if m:
+                    return float(m.group(0))
+
+        return None
 
     def nnue(self, fens):
         
@@ -206,4 +216,3 @@ class UCIEngine:
             score.append(self._nnue_eval_fen(fen))
 
         return score
-
