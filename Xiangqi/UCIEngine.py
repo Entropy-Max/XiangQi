@@ -28,15 +28,15 @@ class UCIEngine:
         self.write("setoption name UCI_Variant value xiangqi")
 
         self.write("isready")
-        self.read_until("readyok")
+        self._read_output("readyok")
     
         
     def _read_output(self):
         for line in self.proc.stdout:
-            self.q.put(line.strip())
+            self.q.put(line.decode().strip())
 
     def write(self, cmd):
-        self.proc.stdin.write(cmd + "\n")
+        self.proc.stdin.write((cmd + "\n").encode())
         self.proc.stdin.flush()
 
     def read_until(self, keyword):
@@ -187,6 +187,7 @@ class UCIEngine:
         return None  # if nothing found
 
     def nnue(self, fens):
+        self.write("setoption name EvalFile value /xiangqi-c07e94a5c7cb.nnue")
         score=[]
         for fen in fens:
             score.append(self._nnue_eval_fen(fen))
