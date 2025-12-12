@@ -1,6 +1,6 @@
-from PIL import Image
 from collections import defaultdict
 from Xiangqi.FEN import FEN
+from Xiangqi.Move import Move
 import re
 
 red_pieces = '车马炮帅仕相兵'
@@ -61,10 +61,10 @@ def numerals_etc(x):
     raise ValueError("numerals_etc")
   
 
-class MoveCHN(FEN):
+class MoveCHN(Move):
 
     def __init__(self,fen,moves):
-        super().__init__(fen)
+        super().__init__(fen,moves)
         self.moves=moves
         self.movesCHN=[]
         self.piece_counts = {}
@@ -86,7 +86,7 @@ class MoveCHN(FEN):
                 self.piece_moves[pid] = [(r, c)]
     
 
-    def parse_move_to_positions(self, move, side='auto'):
+    def _parse_move(self, move, side='auto'):
 
         move = move.replace(' ', '')
         if len(move) != 4:
@@ -200,7 +200,7 @@ class MoveCHN(FEN):
         return (sr, sc), (tr, tc)
 
 
-    def apply_move(self, move, side='auto', verbose=True):
+    def _apply_move(self, move, side='auto', verbose=True):
         """
         Apply move, update piece_moves (append for mover, set captured piece to 0).
         Returns new_board, new_fen, new_piece_moves.
@@ -208,7 +208,7 @@ class MoveCHN(FEN):
         """
 
         try:
-            res = self.parse_move_to_positions(move, side)
+            res = self._parse_move(move, side)
         except Exception as e:
             if verbose:
                 print(f"❌ Could not parse move '{move}': {e}")
