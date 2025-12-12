@@ -31,20 +31,20 @@ class UCIEngine:
         self.read("readyok")
 
     def write(self, cmd):
-        self.proc.stdin.write((cmd + "\n"))
+        if isinstance(cmd, bytes):
+            data = cmd
+        else:
+            data = (cmd + "\n").encode()
+        self.proc.stdin.write(data)
         self.proc.stdin.flush()
-
-    def write_encoded(self, cmd):
-        self.proc.stdin.write((cmd + "\n").encode())
-        self.proc.stdin.flush()
-        
-    def read_decoded(self):
-        for line in self.proc.stdout:
-            self.q.put(line.decode().strip())
+    
         
     def read(self):
         for line in self.proc.stdout:
-            self.q.put(line.decode().strip())
+            if isinstance(line, bytes):
+                line = line.decode()
+            line = line.strip()
+            self.q.put(line)
 
     def read_until(self, keyword):
         lines = []
@@ -53,6 +53,9 @@ class UCIEngine:
                 line = self.q.get(timeout=1)
             except queue.Empty:
                 break
+            if isinstance(line, bytes):
+                line = line.decode()
+            line = line.strip()
             lines.append(line)
             if keyword in line:
                 break
@@ -173,11 +176,11 @@ class UCIEngine:
     
     def _nnue_eval_fen(self, fen):
         # Set the position
-        self.write_encoded(f"position fen {fen}")
+        self.write(f"position fen {fen}")
         self.write("eval")
     
         # Read until we get a score
-        lines = self.read_decoded()
+        lines = self.read()
     
         # Look for a line containing NNUE score
         for line in lines:
