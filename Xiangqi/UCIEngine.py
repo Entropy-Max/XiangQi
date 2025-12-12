@@ -2,8 +2,6 @@ import subprocess
 import threading
 import queue
 import re
-import os
-import requests
 from Xiangqi import *
 
 class UCIEngine:
@@ -18,9 +16,12 @@ class UCIEngine:
             text=True,
             bufsize=1
         )
+        
         self.q = queue.Queue()
-        self.reader = threading.Thread(target=self.read, daemon=True)
+        
+        self.reader = threading.Thread(target=self.reader, daemon=True)
         self.reader.start()
+        
         print("Engine starts up ...... ready!")
 
         # Init
@@ -45,7 +46,7 @@ class UCIEngine:
         self.proc.stdin.flush()
     
         
-    def read(self):
+    def reader(self):
         for line in self.proc.stdout:
             if isinstance(line, bytes):
                 line = line.decode()
@@ -186,8 +187,27 @@ class UCIEngine:
 
     def nnue(self, fens):
         self.write("ucinewgame")
+        self.write("setoption name Use NNUE value true")
+       
         score=[]
         for fen in fens:
             score.append(self._nnue_eval_fen(fen))
+        
+        return score
+
+    def _eval_fen(self, fen):
+        self.write(f"position fen '{fen}'")
+        self.write("eval")
+        output= self.read_until("Final")
+        return output 
+
+
+    def eval(self, fens):
+        self.write("ucinewgame")
+        self.write("setoption name Use NNUE value false")
+        
+        score=[]
+        for fen in fens:
+            score.append(self._eval_fen(fen))
         
         return score
