@@ -6,14 +6,14 @@ from IPython.display import display
 # https://xiangqiboard.com/editor
 # https://xqbase.com/tools/xqviewer.htm
 
-def _value_to_color(v, vmin, vmax):
+def _value_to_color(v, vmax):
     if v >= 0:
         t = min(v / vmax, 1.0)
         r = int(255)
         g = int(255 * (1 - t))
         b = int(255 * (1 - t))
     else:
-        t = min(-v / abs(vmin), 1.0)
+        t = min(-v / vmax, 1.0)
         r = int(255 * (1 - t))
         g = int(255 * (1 - t))
         b = int(255)
@@ -205,11 +205,12 @@ class FEN:
         if heatmap is not None:
             values = [v for row in heatmap for v in row]
             vmin, vmax = min(values), max(values)
+            vmax = max(abs(vmin),vmax)
     
             for r in range(rows):
                 for c in range(cols):
                     v = heatmap[r][c]
-                    color = _value_to_color(v, vmin, vmax)
+                    color = _value_to_color(v, vmax)
 
                     x0 = c * cell_size
                     y0 = (rows - 1 - r ) * cell_size
