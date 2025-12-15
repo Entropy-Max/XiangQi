@@ -202,6 +202,25 @@ class FEN:
         img = Image.new("RGB", (width, height + cell_size), bg_color)
         draw = ImageDraw.Draw(img)
 
+        if heatmap is not None:
+            values = [v for row in heatmap for v in row]
+            vmin, vmax = min(values), max(values)
+    
+            for r in range(rows):
+                for c in range(cols):
+                    v = heatmap[r][c]
+                    color = _value_to_color(v, vmin, vmax)
+
+                    x0 = c * cell_size
+                    y0 = (rows - 1 - r ) * cell_size
+                    x1 = x0 + cell_size
+                    y1 = y0 + cell_size
+
+                    draw.rectangle([x0, y0, x1, y1], fill=color, outline="white")
+
+                    txt = f"{v:.2f}"
+                    draw.text((x0 + 5, y0 + 5), txt, fill="black")
+                        
         # Grid lines
         for i in range(rows):
             y = i * cell_size + cell_size // 2
@@ -255,25 +274,6 @@ class FEN:
                                
                     col_idx += 1
        
-        if heatmap is not None:
-            values = [v for row in heatmap for v in row]
-            vmin, vmax = min(values), max(values)
-    
-            for r in range(rows):
-                for c in range(cols):
-                    v = heatmap[r][c]
-                    color = _value_to_color(v, vmin, vmax)
-
-                    x0 = c * cell_size
-                    y0 = (rows - 1 - r ) * cell_size
-                    x1 = x0 + cell_size
-                    y1 = y0 + cell_size
-
-                    draw.rectangle([x0, y0, x1, y1], fill=color, outline="white")
-
-                    txt = f"{v:.2f}"
-                    draw.text((x0 + 5, y0 + 5), txt, fill="black")
-                        
         return img
 
     def draw_new(self,orientation='h'):
