@@ -39,6 +39,11 @@ class FEN:
                 valid = False
                 print(f"Warning: 9 files expected in rank {rank}")
 
+            for each in rank: 
+                if not(each in 'PRCBANKprcbank12345678.'):
+                    valid = False
+                    print("PRCBANKprcbank12345678. expected!")
+
     def _to_matrix(self):
 
         self.board=[]
@@ -127,7 +132,21 @@ class FEN:
         for r in self.board:
             print(' '.join(r))
 
-    def draw(self): 
+    def value_to_color(v, vmin, vmax):
+        if v >= 0:
+            t = min(v / vmax, 1.0)
+            r = int(255)
+            g = int(255 * (1 - t))
+            b = int(255 * (1 - t))
+        else:
+            t = min(-v / abs(vmin), 1.0)
+            r = int(255 * (1 - t))
+            g = int(255 * (1 - t))
+            b = int(255)
+        return (r, g, b)
+
+    
+    def draw(self, heatmap=None): 
 
         # Board config
         cell_size = 60
@@ -233,9 +252,28 @@ class FEN:
 
                     # Draw piece text
                     draw.text((x, y), chr(piece_char), font=font_piece, fill=color, anchor="mm")
-
+                               
                     col_idx += 1
+       
+        if heatmap is not None:
+            values = [v for row in heatmap for v in row]
+            vmin, vmax = min(values), max(values)
+    
+            for r in range(rows):
+                for c in range(cols):
+                    v = heatmap[r][c]
+                    color = value_to_color(v, vmin, vmax)
 
+                    x0 = col_idx * cell_size
+                    y0 = (rows - 1 - row_idx ) * cell_size
+                    x1 = x0 + cell_size
+                    y1 = y0 + cell_size
+
+                    draw.rectangle([x0, y0, x1, y1], fill=color, outline="white")
+
+                    txt = f"{v:.2f}"
+                    draw.text((x0 + 5, y0 + 5), txt, fill="black")
+                        
         return img
 
     def draw_new(self,orientation='h'):
