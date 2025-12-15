@@ -262,7 +262,7 @@ class FEN:
             for r in range(rows):
                 for c in range(cols):
                     v = heatmap[r][c]
-                    color = value_to_color(v, vmin, vmax)
+                    color = _value_to_color(v, vmin, vmax)
 
                     x0 = col_idx * cell_size
                     y0 = (rows - 1 - row_idx ) * cell_size
