@@ -6,6 +6,19 @@ from IPython.display import display
 # https://xiangqiboard.com/editor
 # https://xqbase.com/tools/xqviewer.htm
 
+def _value_to_color(v, vmin, vmax):
+    if v >= 0:
+        t = min(v / vmax, 1.0)
+        r = int(255)
+        g = int(255 * (1 - t))
+        b = int(255 * (1 - t))
+    else:
+        t = min(-v / abs(vmin), 1.0)
+        r = int(255 * (1 - t))
+        g = int(255 * (1 - t))
+        b = int(255)
+    return (r, g, b)
+
 class FEN:
     def __init__(self, fen):
 
@@ -131,19 +144,6 @@ class FEN:
 
         for r in self.board:
             print(' '.join(r))
-
-    def value_to_color(v, vmin, vmax):
-        if v >= 0:
-            t = min(v / vmax, 1.0)
-            r = int(255)
-            g = int(255 * (1 - t))
-            b = int(255 * (1 - t))
-        else:
-            t = min(-v / abs(vmin), 1.0)
-            r = int(255 * (1 - t))
-            g = int(255 * (1 - t))
-            b = int(255)
-        return (r, g, b)
 
     
     def draw(self, heatmap=None): 
