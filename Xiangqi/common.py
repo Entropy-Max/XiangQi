@@ -39,6 +39,21 @@ numerals_english = {
 }
 
 # Piece names map
+
+AXF_map_cte = {
+    # Red (Uppercase)
+    '车': 'R', '马': 'H', '炮': 'C', '相': 'E', '仕': 'A', '帅': 'K', '帥': 'K', '兵': 'P',
+    # Black (Lowercase)
+    '車': 'R', '馬': 'H', '砲': 'C', '象': 'E', '士': 'A', '将': 'K', '將': 'K', '卒': 'P'
+}
+
+AXF_map_etc = {
+    #  Red (Uppercase)
+    "K": "帅", "A": "仕", "E": "相", "H": "马", "R": "车", "C": "炮", "P": "兵",
+    # Black (Lowercase)
+    "k": "将", "a": "士", "e": "象", "h": "马", "r": "车", "c": "炮", "p": "卒"
+}
+
 ## Chinese to English
 piece_map_cte = {
     # Red (Uppercase)
