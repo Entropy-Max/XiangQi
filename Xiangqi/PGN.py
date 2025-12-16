@@ -1,4 +1,4 @@
-from common import piece_map_etc, numerals_english, action_map_etc
+from Xiangqi.common import piece_map_etc, numerals_english, action_map_etc
 
 def AXF_CHN(moves):
 
