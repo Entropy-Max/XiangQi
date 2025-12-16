@@ -19,6 +19,10 @@ NUMS = chinese_nums + arabic_nums
 HINTS = '前中后一二三四五'
 ACTIONS = '进退平'
 
+action_map_etc = {
+    '+': '进', '-': '退', '=': '平', '.':'平'
+}
+
 numerals_chinese = {
     '一': 1, '二': 2, '三': 3, '四': 4, '五': 5,
     '六': 6, '七': 7, '八': 8, '九': 9
@@ -41,11 +45,10 @@ piece_map_cte = {
 ## English to Chinese
 piece_map_etc = {
     #  Red (Uppercase)
-    "K": "帅", "A": "仕", "B": "相", "N": "马", "R": "车", "C": "炮", "P": "兵",
+    "K": "帅", "A": "仕", "B": "相", "N": "马", "H": "马", "R": "车", "C": "炮", "P": "兵",
     # Black (Lowercase)
-    "k": "将", "a": "士", "b": "象", "n": "马", "r": "车", "c": "炮", "p": "卒"
+    "k": "将", "a": "士", "b": "象", "n": "马", "h": "马", "r": "车", "c": "炮", "p": "卒"
 }
-
 
 # Numerals
 ## Chinese to English
