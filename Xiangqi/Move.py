@@ -1,4 +1,5 @@
 import common 
+from Xiangqi.FEN import FEN
 import re
 
 class Move(FEN):
