@@ -42,16 +42,16 @@ def CHN_AXF(moves):
         if len(red_move)==4:
 
             red_move=piece_map_cte[red_move[0]]+\
-     numerals_chinese[red_move[1]]+\
+     str(numerals_chinese[red_move[1]])+\
      action_map_cte[red_move[2]]+\
-     numerals_chinese[red_move[3]]
+     str(numerals_chinese[red_move[3]])
 
         if len(result) == 3: 
             black_move = result[2]
             black_move = piece_map_cte[black_move[0]]+\
-     black_move[1]+\
+     str(black_move[1])+\
      action_map_cte[black_move[2]]+\
-     black_move[3]
+     str(black_move[3])
 
             move_new.append(round+' '+red_move+' '+black_move)
 
