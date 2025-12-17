@@ -86,9 +86,9 @@ class PGN():
             if len(result) == 3: 
                 black_move = result[2]
                 black_move=black_move[0]+\
-                    str(10 - black_move[1]) if black_move[2] == '平' else  str(black_move[1]) +\
+                    str(10 - int(black_move[1])) if black_move[2] == '平' else  black_move[1] +\
                     black_move[2]+\
-                    str(10 - black_move[3]) if black_move[2] == '平' else  str(black_move[3]) 
+                    str(10 - int(black_move[3])) if black_move[2] == '平' else  black_move[3]
                     
 
                 moves_new.append(round+' '+red_move+' '+black_move)
