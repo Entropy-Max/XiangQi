@@ -78,9 +78,9 @@ class PGN():
             if len(red_move)==4:
 
                 red_move=red_move[0]+\
-                    (numerals_english(10 - numerals_chinese[red_move[1]]) if red_move[2] == '平' else  red_move[1])+\
+                    (numerals_english[10 - numerals_chinese[red_move[1]]] if red_move[2] == '平' else  red_move[1])+\
                     red_move[2]+\
-                    (numerals_english(10 - numerals_chinese[red_move[3]]) if red_move[2] == '平' else  red_move[3]) 
+                    (numerals_english[10 - numerals_chinese[red_move[3]]] if red_move[2] == '平' else  red_move[3]) 
                     
 
             if len(result) == 3: 
