@@ -122,7 +122,7 @@ class MoveCHN(Move):
                 tr = sr + forward * num if third == '进' else sr - forward * num
             elif piece_type == 'N':
                 tc = 9 - num if side == 'red' else num - 1
-                tr = sr + forward * (3-fourth+third) if third == '进' else sr - forward * (3-fourth+third)
+                tr = sr + forward * (3-int(fourth)+int(third)) if third == '进' else sr - forward * (3-int(fourth)+int(third))
             elif piece_type == 'B':
                 tc = 9 - num if side == 'red' else num - 1
                 tr = sr + forward * 2 if third == '进' else sr - forward * 2
