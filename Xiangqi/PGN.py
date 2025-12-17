@@ -85,6 +85,8 @@ class PGN():
 
             if len(result) == 3: 
                 black_move = result[2]
+
+                print(black_move[2])
                 black_move=black_move[0]+\
                     str(10 - int(black_move[1])) +\
                     black_move[2]+\
