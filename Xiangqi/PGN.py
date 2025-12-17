@@ -2,8 +2,8 @@ from Xiangqi.common import AXF_map_cte, AXF_map_etc, numerals_english, numerals_
 
 class PGN(moves):
     def __init__(self,moves):
-    self.AXF = moves
-    self.CHN = moves
+        self.AXF = moves
+        self.CHN = moves
     
     def AXF_CHN(self):
 
