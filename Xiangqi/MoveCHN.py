@@ -121,8 +121,12 @@ class MoveCHN(Move):
                 # vertical moves: delta = num steps forward/backward
                 tr = sr + forward * num if third == '进' else sr - forward * num
             elif piece_type == 'N':
-                tc = 9 - num if side == 'red' else num - 1
-                tr = sr + forward * (3-int(fourth)+int(third)) if third == '进' else sr - forward * (3-int(fourth)+int(third))
+                if side == 'red' :
+                    tc = 9 - num 
+                    tr = sr + forward * (3-numerals_cte(fourth)+numerals_cte(second)) if third == '进' else sr - forward * (3-numerals_cte(fourth)+numerals_cte(second))
+                else:
+                    tc = num - 1
+                    tr = sr + forward * (3-int(fourth)+int(second)) if third == '进' else sr - forward * (3-int(fourth)+int(second))
             elif piece_type == 'B':
                 tc = 9 - num if side == 'red' else num - 1
                 tr = sr + forward * 2 if third == '进' else sr - forward * 2
