@@ -1,4 +1,4 @@
-import common 
+from Xiangqi import common 
 from Xiangqi.FEN import FEN
 import re
 
