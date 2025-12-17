@@ -64,3 +64,36 @@ class PGN():
                 self.AXF.append(round+' '+red_move)
 
         self.AXF =  '\n'.join(self.AXF)
+
+    def CHN_flip(self):
+
+        moves_new = []
+
+        for move in self.CHN.strip().split('\n'):
+            result = move.split()
+        
+            round = result[0]
+        
+            red_move = result[1]   
+            if len(red_move)==4:
+
+                red_move=red_move[0]+\
+                    str(10 - numerals_chinese[red_move[1]]) if red_move[1] == '平' else  str(numerals_chinese[red_move[1]]) +\
+                    str(numerals_chinese[red_move[2]])+\
+                    str(10 - numerals_chinese[red_move[1]]) if red_move[1] == '平' else  str(numerals_chinese[red_move[1]]) 
+                    
+
+            if len(result) == 3: 
+                black_move = result[2]
+                    black_move=black_move[0]+\
+                    str(10 - numerals_chinese[black_move[1]]) if red_move[1] == '平' else  str(numerals_chinese[red_move[1]]) +\
+                    str(numerals_chinese[black_move[2]])+\
+                    str(10 - numerals_chinese[black_move[1]]) if red_move[1] == '平' else  str(numerals_chinese[red_move[1]]) 
+                    
+
+                moves_new.append(round+' '+red_move+' '+black_move)
+
+            else:
+                moves_new.append(round+' '+red_move)
+
+        self.CHN =  '\n'.join(moves_new)
