@@ -32,35 +32,35 @@ class PGN():
             else:
                 self.CHN.append(round+' '+red_move)
 
-    self.CHN =  '\n'.join(self.CHN)
+        self.CHN =  '\n'.join(self.CHN)
           
-def CHN_AXF(self):
+    def CHN_AXF(self):
 
-    self.AXF = []
+        self.AXF = []
 
-    for move in self.CHN.strip().split('\n'):
-        result = move.split()
+        for move in self.CHN.strip().split('\n'):
+            result = move.split()
         
-        round = result[0]
+            round = result[0]
         
-        red_move = result[1]   
-        if len(red_move)==4:
+            red_move = result[1]   
+            if len(red_move)==4:
 
-            red_move=AXF_map_cte[red_move[0]]+\
-                str(numerals_chinese[red_move[1]])+\
-                action_map_cte[red_move[2]]+\
-                str(numerals_chinese[red_move[3]])
+                red_move=AXF_map_cte[red_move[0]]+\
+                    str(numerals_chinese[red_move[1]])+\
+                    action_map_cte[red_move[2]]+\
+                    str(numerals_chinese[red_move[3]])
 
-        if len(result) == 3: 
-            black_move = result[2]
-            black_move = AXF_map_cte[black_move[0]]+\
-                 str(black_move[1])+\
-                 action_map_cte[black_move[2]]+\
-                 str(black_move[3])
+            if len(result) == 3: 
+                black_move = result[2]
+                black_move = AXF_map_cte[black_move[0]]+\
+                    str(black_move[1])+\
+                    action_map_cte[black_move[2]]+\
+                    str(black_move[3])
 
-            self.AXF.append(round+' '+red_move+' '+black_move)
+                self.AXF.append(round+' '+red_move+' '+black_move)
 
-        else:
-            self.AXF.append(round+' '+red_move)
+            else:
+                self.AXF.append(round+' '+red_move)
 
-    self.AXF =  '\n'.join(self.AXF)
+        self.AXF =  '\n'.join(self.AXF)
