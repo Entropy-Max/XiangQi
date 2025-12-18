@@ -14,7 +14,6 @@ class PGN():
             round = result[0]
             red_move = result[1]   
             if len(red_move)==4:
-
                 red_move=AXF_map_etc[red_move[0]]+\
                     numerals_english[int(red_move[1])]+\
                     action_map_etc[red_move[2]]+\
@@ -75,21 +74,32 @@ class PGN():
             round = result[0]
         
             red_move = result[1]   
-            if len(red_move)==4:
-
-                red_move=red_move[0]+\
-                    numerals_english[10 - numerals_chinese[red_move[1]]] +\
-                    red_move[2]+\
-                    (numerals_english[10 - numerals_chinese[red_move[3]]] if red_move[2] == '平' else  red_move[3]) 
+            if len(red_move) == 4:
+                if (red_move[0] in '马仕相'):
+                    red_move=red_move[0]+\
+                        numerals_english[10 - numerals_chinese[red_move[1]]] +\
+                        red_move[2]+\
+                        numerals_english[10 - numerals_chinese[red_move[3]]]
+                else:                        
+                    red_move=red_move[0]+\
+                        numerals_english[10 - numerals_chinese[red_move[1]]] +\
+                        red_move[2]+\
+                        str(numerals_english[10 - numerals_chinese[red_move[3]]] if red_move[2] == '平' else  red_move[3]) 
                     
 
             if len(result) == 3: 
                 black_move = result[2]
-             
-                black_move=black_move[0]+\
-                    str(10 - int(black_move[1])) +\
-                    black_move[2]+\
-                    (str(10 - int(black_move[3])) if black_move[2] == '平' else  black_move[3])
+                if len(black_move) == 4:
+                    if (black_move[0] in '马士象'):
+                        black_move=black_move[0]+\
+                            str(10 - int(black_move[1])) +\
+                            black_move[2]+\
+                            str(10 - int(black_move[3]))                                  
+                    else:
+                        black_move=black_move[0]+\
+                            str(10 - int(black_move[1])) +\
+                            black_move[2]+\
+                            (str(10 - int(black_move[3])) if black_move[2] == '平' else  black_move[3])
                     
 
                 moves_new.append(round+' '+red_move+' '+black_move)
