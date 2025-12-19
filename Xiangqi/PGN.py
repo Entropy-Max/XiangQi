@@ -32,10 +32,22 @@ class PGN():
 
             if len(result) == 3: 
                 black_move = result[2]
-                black_move = AXF_map_etc[black_move[0].lower()]+\
-                    black_move[1]+\
-                    action_map_etc[black_move[2]]+\
-                    black_move[3]
+                if len(black_move)==4:
+                    if black_move[1].isdigit():
+                        black_move = AXF_map_etc[black_move[0].lower()]+\
+                            black_move[1]+\
+                            action_map_etc[black_move[2]]+\
+                            black_move[3]
+                    elif red_move[1]=='+':
+                        black_move = '前'+\
+                            AXF_map_etc[black_move[0].lower()]+\
+                            action_map_etc[black_move[2]]+\
+                            black_move[3]
+                    elif red_move[1]=='-':
+                        black_move = '后'+\
+                            AXF_map_etc[black_move[0].lower()]+\
+                            action_map_etc[black_move[2]]+\
+                            black_move[3]
 
                 self.CHN.append(round+' '+red_move+' '+black_move)
 
