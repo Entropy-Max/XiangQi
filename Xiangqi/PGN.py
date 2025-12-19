@@ -57,7 +57,7 @@ class PGN():
         self.CHN =  '\n'.join(self.CHN)
           
     def CHN_AXF(self):
-
+# can't process 前后
         self.AXF = []
 
         for move in self.CHN.strip().split('\n'):
@@ -88,7 +88,7 @@ class PGN():
         self.AXF =  '\n'.join(self.AXF)
 
     def CHN_flip(self):
-
+# can't process 前后
         moves_new = []
 
         for move in self.CHN.strip().split('\n'):
