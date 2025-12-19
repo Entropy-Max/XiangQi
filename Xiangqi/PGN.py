@@ -20,13 +20,13 @@ class PGN():
                       action_map_etc[red_move[2]]+\
                       numerals_english[int(red_move[3])]
                 elif red_move[1]=='+':
-                    red_move=AXF_map_etc[red_move[0]]+\
-                      '进'+\
+                    red_move='前'+\
+                      AXF_map_etc[red_move[0]]+\          
                       action_map_etc[red_move[2]]+\
                       numerals_english[int(red_move[3])]     
                 elif red_move[1]=='-':
-                    red_move=AXF_map_etc[red_move[0]]+\
-                      '退'+\
+                    red_move='后'+\
+                      AXF_map_etc[red_move[0]]+\
                       action_map_etc[red_move[2]]+\
                       numerals_english[int(red_move[3])]
 
