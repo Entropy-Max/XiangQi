@@ -15,20 +15,20 @@ class PGN():
             red_move = result[1]   
             if len(red_move)==4:
                 if red_move[1].isdigit():
-                    red_move=AXF_map_etc[red_move[0]]
-                    + numerals_english[int(red_move[1])]
-                    + action_map_etc[red_move[2]]
-                    + numerals_english[int(red_move[3])]
+                    red_move=AXF_map_etc[red_move[0]] +\
+                      numerals_english[int(red_move[1])]+\
+                      action_map_etc[red_move[2]]+\
+                      numerals_english[int(red_move[3])]
                 elif red_move[1]=='+':
-                    red_move='前'
-                    + AXF_map_etc[red_move[0]]
-                    + action_map_etc[red_move[2]]
-                    + numerals_english[int(red_move[3])]     
+                    red_move='前'+\
+                      AXF_map_etc[red_move[0]]+\
+                      action_map_etc[red_move[2]]+\
+                      numerals_english[int(red_move[3])]     
                 elif red_move[1]=='-':
-                    red_move='后'
-                    + AXF_map_etc[red_move[0]]
-                    + action_map_etc[red_move[2]]
-                    + numerals_english[int(red_move[3])]
+                    red_move='后'+\
+                      AXF_map_etc[red_move[0]]+\
+                      action_map_etc[red_move[2]]+\
+                      numerals_english[int(red_move[3])]
 
             if len(result) == 3: 
                 black_move = result[2]
