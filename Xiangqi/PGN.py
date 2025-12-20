@@ -69,6 +69,16 @@ class PGN():
             if len(red_move)==4:
                 if red_move[0] in HINTS:
                     print("hints")
+                    if red_move[0]=='前':
+                        hint='+'
+                    elif red_move[0]=='后':
+                        hint='-'
+                    else:
+                        hint='='
+                    red_move=AXF_map_cte[red_move[1]]+\
+                        hint +\
+                        action_map_cte[red_move[2]]+\
+                        str(numerals_chinese[red_move[3]])
                 else:
                     red_move=AXF_map_cte[red_move[0]]+\
                         str(numerals_chinese[red_move[1]])+\
