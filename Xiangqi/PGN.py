@@ -98,10 +98,10 @@ class PGN():
                             hint='-'
                         else:
                             hint='='
-                            black_move = AXF_map_cte[black_move[1]]+\
-                                hint+\
-                                action_map_cte[black_move[2]]+\
-                                str(black_move[3])
+                        black_move = AXF_map_cte[black_move[1]]+\
+                            hint+\
+                            action_map_cte[black_move[2]]+\
+                            str(black_move[3])
                     else:
                         black_move = AXF_map_cte[black_move[0]]+\
                             str(black_move[1])+\
