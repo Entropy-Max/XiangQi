@@ -16,6 +16,11 @@ class Move(FEN):
 
     @staticmethod
     def _parse_move(move):
+        # 10 abcdefghi (0,0)
+        # 9
+        # ...
+        # 2
+        # 1  abcdefghi
 
         if not(len(move) in (4,5,6)):
             raise ValueError("length of move must be 4!")
