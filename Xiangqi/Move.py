@@ -46,7 +46,6 @@ class Move(FEN):
 
         is_red = piece.isupper()
         name = piece_map_etc[piece]
-        print(name)
 
         start_file = numerals_etc(9-sx) if is_red else str(sx+1)
         end_file = numerals_etc(9-tx)if is_red else str(tx+1)
@@ -101,7 +100,8 @@ class Move(FEN):
                 notation = self._apply_move(sx,sy,tx,ty)
                 self.movesCHN.append(notation)
 
-            except Exception:
+            except Exception as e:
+                print(e)
                 self.movesCHN.append('****')
                 self.turn_red = not self.turn_red
                 continue
