@@ -67,7 +67,7 @@ class Move(FEN):
                 else:
                     direction = "进" if ty > sy else "退"
                 steps = abs(ty - sy)
-                if is_red: steps = numerals_english[steps]
+                if is_red: steps = numerals_etc(steps)
                 notation = f"{name}{start_file}{direction}{steps}"
             elif sy == ty:  # horizontal
                 notation = f"{name}{start_file}平{end_file}"
