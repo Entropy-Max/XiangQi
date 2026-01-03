@@ -42,7 +42,7 @@ class Move(FEN):
         piece = self.board[sy][sx]
 
         if piece == ".":
-            return f'**{turn_red}**no piece**'
+            return f'**{self.turn_red}**no piece**'
 
         is_red = piece.isupper()
         name = piece_map_etc[piece]
