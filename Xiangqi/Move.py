@@ -1,4 +1,5 @@
 from Xiangqi import common 
+from common import piece_map_etc
 from Xiangqi.FEN import FEN
 import re
 
