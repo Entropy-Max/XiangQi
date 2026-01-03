@@ -1,6 +1,6 @@
 from Xiangqi import *
 
-def heatmap(BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
+def heatmap(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
 
     if NNUE:
         base_eval = engine._nnue_eval_fen(BASE_FEN_0)
