@@ -7,10 +7,12 @@ def heatmap(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
     else:
         base_eval = engine._eval_fen(BASE_FEN_0)
 
+    if base_eval is None:
+        raise ValueError("Base FEN not evaluable by NNUE")
 
     # heatmap[rank][file] # rank 0..9, file 0..8
 
-    heatmap = [[0.0 for _ in range(9)] for _ in range(10)]
+    heatmap_data = [[0.0 for _ in range(9)] for _ in range(10)]
 
     for rank in range(10):
         for file in range(9):
@@ -28,9 +30,12 @@ def heatmap(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
                     v = engine._nnue_eval_fen(fen.fen)-base_eval
                 else:
                     v = engine._eval_fen(fen.fen)-base_eval
+                    
+                if v is None:
+                    raise ValueError("Dynamic FEN not evaluable")
             else:
                 v = 0
 
-            heatmap[rank][file] = v
+            heatmap_data[rank][file] = v
           
-    return heatmap
+    return heatmap_data
