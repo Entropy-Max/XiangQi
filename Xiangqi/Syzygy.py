@@ -27,12 +27,16 @@ def heatmap(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
                 fen._from_matrix()
 
                 if NNUE:
-                    v = engine._nnue_eval_fen(fen.fen)-base_eval
+                    v = engine._nnue_eval_fen(fen.fen)
                 else:
-                    v = engine._eval_fen(fen.fen)-base_eval
+                    v = engine._eval_fen(fen.fen)
                     
                 if v is None:
-                    raise ValueError("Dynamic FEN not evaluable")
+                    #raise ValueError("Dynamic FEN not evaluable")
+                    print(f"NNUE rejected: {fen.fen}")
+                    v = 0.0
+
+                v = v - base_eval
             else:
                 v = 0
 
