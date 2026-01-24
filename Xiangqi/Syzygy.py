@@ -34,7 +34,7 @@ def heatmap(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
                 if v is None:
                     #raise ValueError("Dynamic FEN not evaluable")
                     print(f"NNUE rejected: {fen.fen}")
-                    v = 0.0
+                    v = - engine._eval_fen(BASE_FEN_1)
                 else:
                     v = v - base_eval
             else:
