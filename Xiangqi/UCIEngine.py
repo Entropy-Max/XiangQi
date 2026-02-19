@@ -76,9 +76,9 @@ class UCIEngine:
         moves = []
         for line in out:
             # Parse Legal moves:
-            if line.startswith("Legal moves:"):
+            if "Legal moves:" in line:
                 moves = line.split("Legal moves:")[1].strip().split()
-            break
+                break
 
         self.close()
 
