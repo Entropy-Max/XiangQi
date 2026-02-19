@@ -76,8 +76,8 @@ class UCIEngine:
 
     def legal_moves(self, fen): 
         self.write(f"position fen {fen}")
-        engine.write("go perft 1")
-        out = engine.read_until("Nodes searched:")
+        self.write("go perft 1")
+        out = self.read_until("Nodes searched:")
 
         line = self.read_line()
         if line:
@@ -102,8 +102,7 @@ class UCIEngine:
         Analyze a Xiangqi position given by a FEN string.
         Returns the engine's best move and principal variation (PV).
 
-        :param fen: str, Xiangqi FEN string
-        :param depth: int, search depth
+        :param fen: str, Xiangqiselfnt, search depth
         :return: tuple (bestmove, pv) where pv is a list of moves in UCI format
         """
         
