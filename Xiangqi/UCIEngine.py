@@ -76,8 +76,9 @@ class UCIEngine:
 
     def legal_moves(self, fen): 
         self.write(f"position fen {fen}")
-        self.write("d")
-        out  = self.read_until("Legal moves:")
+        engine.write("go perft 1")
+        out = engine.read_until("Nodes searched:")
+
         line = self.read_line()
         if line:
             out.append(line)
@@ -85,14 +86,16 @@ class UCIEngine:
         moves = []
         for line in out:
             # Parse Legal moves:
-            if line.startswith("Legal moves:"):
-                moves = line.split("Legal moves:")[1].strip().split()
-                break
-
+            line = line.strip()
+            if ":" in line and "Nodes" not in line:
+                move = line.split(":")[0].strip()
+                moves.append(move)
+        
         self.close()
 
         return moves
-    
+
+
         
     def bestmove(self, fen, depth=10):
         """
