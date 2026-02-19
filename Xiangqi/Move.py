@@ -23,11 +23,11 @@ class Move(FEN):
         # 1  abcdefghi
 
         if not(len(move) in (4,5,6)):
-            raise ValueError("length of move must be 4!")
+            raise ValueError("Parse move: length of move must be 4!")
 
         m = re.fullmatch(r"([a-i])(10|[1-9])([a-i])(10|[1-9])", move)
         if not m:
-            raise ValueError("Regular Expressions!")
+            raise ValueError("Parse move: Regular Expressions!")
 
         sx = ord(m.group(1)) - ord("a")
         sy = 10 - int(m.group(2))
