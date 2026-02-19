@@ -68,6 +68,23 @@ class UCIEngine:
                 break
         return lines
 
+    def legal_moves(self, fen): 
+        self.write(f"position fen {fen}")
+        self.write("d")
+        out  = self.read_until("Legal moves:")
+        
+        moves = []
+        for line in out:
+            # Parse Legal moves:
+            if line.startswith("Legal moves:"):
+                moves = line.split("Legal moves:")[1].strip().split()
+            break
+
+        self.close()
+
+        return moves
+    
+        
     def bestmove(self, fen, depth=10):
         """
         Analyze a Xiangqi position given by a FEN string.
@@ -108,6 +125,8 @@ class UCIEngine:
                 if len(parts) >= 2:
                     pv_moves = parts[1].split()
 
+        self.close()
+        
         return {
             "bestmove": bestmove, 
             "pv": pv_moves
