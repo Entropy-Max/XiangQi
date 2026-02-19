@@ -37,6 +37,9 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
+    def is_alive(self):
+        return self.proc.poll() is None
+
     def write(self, cmd):
         if isinstance(cmd, bytes):
             data = cmd.decode()
@@ -91,8 +94,6 @@ class UCIEngine:
                 move = line.split(":")[0].strip()
                 moves.append(move)
         
-        self.close()
-
         return moves
 
 
@@ -136,8 +137,6 @@ class UCIEngine:
                 if len(parts) >= 2:
                     pv_moves = parts[1].split()
 
-        self.close()
-        
         return {
             "bestmove": bestmove, 
             "pv": pv_moves
