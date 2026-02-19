@@ -53,6 +53,12 @@ class UCIEngine:
             line = line.strip()
             self.q.put(line)
 
+    def read_line(self, timeout=1.0):
+        try:
+            return self.q.get(timeout=timeout)
+        except queue.Empty:
+            return None
+        
     def read_until(self, keyword):
         lines = []
         while True:
@@ -72,11 +78,14 @@ class UCIEngine:
         self.write(f"position fen {fen}")
         self.write("d")
         out  = self.read_until("Legal moves:")
-        
+        line = self.read_line()
+        if line:
+            out.append(line)
+                
         moves = []
         for line in out:
             # Parse Legal moves:
-            if "Legal moves:" in line:
+            if line.startswith("Legal moves:"):
                 moves = line.split("Legal moves:")[1].strip().split()
                 break
 
