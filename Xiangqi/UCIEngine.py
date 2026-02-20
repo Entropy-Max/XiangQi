@@ -186,6 +186,8 @@ class UCIEngine:
                     score = None
 
                 # extract pv sequence after "pv"
+                root_move = parts[parts.index("pv") + 1]
+                
                 pv_moves = l.split(" pv ")[1].split()
 
                 pv_list.append((pv_idx, score, pv_moves))
