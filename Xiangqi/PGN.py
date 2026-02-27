@@ -22,6 +22,8 @@ class PGN(FEN):
         # 2
         # 1  abcdefghi
 
+        # need to consider multiple pieces in the same file 
+
         if not(len(move) in (4,5,6)):
             raise ValueError("Parse move: length of move must be 4!")
 
