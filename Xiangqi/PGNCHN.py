@@ -4,7 +4,7 @@ from Xiangqi.FEN import FEN
 from Xiangqi.PGN import PGN
 import re
 
-class PGNCHN(Move):
+class PGNCHN(PGN):
 
     def __init__(self,fen,moves):
         super().__init__(fen,moves)
