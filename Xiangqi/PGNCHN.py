@@ -121,12 +121,23 @@ class PGNCHN(PGN):
                 # vertical moves: delta = num steps forward/backward
                 tr = sr + forward * num if third == '进' else sr - forward * num
             elif piece_type == 'N':
-                if side == 'red' :
-                    tc = 9 - num 
-                    tr = sr + forward * (3 - abs(numerals_cte(fourth) - numerals_cte(second))) if third == '进' else sr - forward * (3 - abs(numerals_cte(fourth) - numerals_cte(second)))
+                if pattern == 'piece+file':
+                    if side == 'red' :
+                        tc = 9 - num 
+                        tr = sr + forward * (3 - abs(numerals_cte(fourth) - numerals_cte(second))) if third == '进' else sr - forward * (3 - abs(numerals_cte(fourth) - numerals_cte(second)))
+                    else:
+                        tc = num - 1
+                        tr = sr + forward * (3 - abs(int(fourth)-int(second))) if third == '进' else sr - forward * (3 - abs(int(fourth)-int(second)))
+                elif pattern =='hint+piece':
+                    if side == 'red':
+                        tc = 9 - num 
+                        tr = sr + forward * (3 - abs(numerals_cte(fourth) - sc)) if third == '进' else sr - forward * (3 - abs(numerals_cte(fourth) - sc))
+                    else:
+                        tc = num - 1
+                        tr = sr + forward * (3 - abs(int(fourth)-sc)) if third == '进' else sr - forward * (3 - abs(int(fourth)-sc))
                 else:
-                    tc = num - 1
-                    tr = sr + forward * (3 - abs(int(fourth)-int(second))) if third == '进' else sr - forward * (3 - abs(int(fourth)-int(second)))
+                    raise ValueError("Don't know move pattern!")
+               
             elif piece_type == 'B':
                 tc = 9 - num if side == 'red' else num - 1
                 tr = sr + forward * 2 if third == '进' else sr - forward * 2
