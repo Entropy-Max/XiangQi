@@ -2,7 +2,7 @@ from Xiangqi.common import *
 from Xiangqi.FEN import FEN
 import re
 
-class Move(FEN):
+class PGN(FEN):
 
     def __init__(self,fen,moves):
         super().__init__(fen)
