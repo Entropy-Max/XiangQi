@@ -1,6 +1,6 @@
 from Xiangqi.common import HINTS, AXF_map_cte, AXF_map_etc, numerals_english, numerals_chinese, action_map_etc,action_map_cte
 
-class PGN():
+class PGNAXF():
     def __init__(self,moves):
         self.AXF = moves
         self.CHN = moves
