@@ -4,9 +4,9 @@ import re
 
 class PGN(FEN):
 
-    def __init__(self,fen,moves):
-        super().__init__(fen)
-        self.moves = moves
+    def __init__(self,start_fen,pgn):
+        super().__init__(start_fen)
+        self.moves = pgn
         self.movesCHN=[]
         self.piece_counts = {}
         self.piece_moves = {}
