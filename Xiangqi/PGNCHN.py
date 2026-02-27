@@ -128,14 +128,14 @@ class PGNCHN(PGN):
                     else:
                         tc = num - 1
                         tr = sr + forward * (3 - abs(int(fourth)-int(second))) if third == '进' else sr - forward * (3 - abs(int(fourth)-int(second)))
-                elif pattern =='hint+piece':
+                elif pattern =='hint+piece': ## internal matrix start form 0
                     if side == 'red':
                         tc = 9 - num 
-                        tr = sr + forward * (3 - abs(num- sc)) if third == '进' else sr - forward * (3 - abs(num - sc))
+                        tr = sr + forward * (3 - abs(num-1 - sc)) if third == '进' else sr - forward * (3 - abs(num-1 - sc))
                         print(move,num,start,tc,tr)
                     else:
                         tc = num - 1
-                        tr = sr + forward * (3 - abs(int(fourth)-sc)) if third == '进' else sr - forward * (3 - abs(int(fourth)-sc))
+                        tr = sr + forward * (3 - abs(int(fourth)-1 -sc)) if third == '进' else sr - forward * (3 - abs(int(fourth)-1 -sc))
                 else:
                     raise ValueError("Don't know move pattern!")
                
