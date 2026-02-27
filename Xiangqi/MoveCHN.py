@@ -1,10 +1,10 @@
 from collections import defaultdict
 from Xiangqi.common import *
 from Xiangqi.FEN import FEN
-from Xiangqi.Move import Move
+from Xiangqi.PGN import PGN
 import re
 
-class MoveCHN(Move):
+class PGNCHN(Move):
 
     def __init__(self,fen,moves):
         super().__init__(fen,moves)
