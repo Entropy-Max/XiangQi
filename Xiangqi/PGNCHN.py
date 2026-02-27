@@ -6,9 +6,9 @@ import re
 
 class PGNCHN(PGN):
 
-    def __init__(self,fen,moves):
-        super().__init__(fen,moves)
-        self.moves=moves
+    def __init__(self,start_fen,pgn):
+        super().__init__(start_fen,pgn)
+        self.moves=pgn
         self.movesCHN=[]
         self.piece_counts = {}
         self.piece_moves = {} # piece move history dict      
@@ -261,7 +261,6 @@ class PGNCHN(PGN):
                 print(f"⚠️ Skipping malformed line '{line}': {e}")
                 continue
 
-        # Apply all rounds using parse_move_to_positions()
         for round_num, red_move, black_move in rounds:
             print(f"\n=== Round {round_num} ===")
 
