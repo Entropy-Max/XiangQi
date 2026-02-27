@@ -132,7 +132,6 @@ class PGNCHN(PGN):
                     if side == 'red':
                         tc = 9 - num 
                         tr = sr + forward * (3 - abs(num-1 - sc)) if third == '进' else sr - forward * (3 - abs(num-1 - sc))
-                        print(move,num,start,tc,tr)
                     else:
                         tc = num - 1
                         tr = sr + forward * (3 - abs(int(fourth)-1 -sc)) if third == '进' else sr - forward * (3 - abs(int(fourth)-1 -sc))
