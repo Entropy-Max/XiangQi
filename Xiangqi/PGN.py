@@ -10,7 +10,7 @@ class PGN(FEN):
         self.movesCHN=[]
         self.piece_counts = {}
         self.piece_moves = {}
-        self.moves_etc()
+        # self.moves_etc()
 
     # UCI moves
 
