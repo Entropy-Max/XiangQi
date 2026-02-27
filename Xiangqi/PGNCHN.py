@@ -124,14 +124,15 @@ class PGNCHN(PGN):
                 if pattern == 'piece+file':
                     if side == 'red' :
                         tc = 9 - num 
-                        tr = sr + forward * (3 - abs(numerals_cte(fourth) - numerals_cte(second))) if third == '进' else sr - forward * (3 - abs(numerals_cte(fourth) - numerals_cte(second)))
+                        tr = sr + forward * (3 - abs(num - numerals_cte(second))) if third == '进' else sr - forward * (3 - abs(num - numerals_cte(second)))
                     else:
                         tc = num - 1
                         tr = sr + forward * (3 - abs(int(fourth)-int(second))) if third == '进' else sr - forward * (3 - abs(int(fourth)-int(second)))
                 elif pattern =='hint+piece':
                     if side == 'red':
                         tc = 9 - num 
-                        tr = sr + forward * (3 - abs(numerals_cte(fourth) - sc)) if third == '进' else sr - forward * (3 - abs(numerals_cte(fourth) - sc))
+                        tr = sr + forward * (3 - abs(num- sc)) if third == '进' else sr - forward * (3 - abs(num - sc))
+                        print(move,num,start,tc,tr)
                     else:
                         tc = num - 1
                         tr = sr + forward * (3 - abs(int(fourth)-sc)) if third == '进' else sr - forward * (3 - abs(int(fourth)-sc))
