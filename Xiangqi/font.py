@@ -7,7 +7,7 @@ file_names = ["BabelStoneXiangqiColour.ttf",
               "minixiangqi.ttf"]
 font_path = ""
 
-def font_download(file_name, source='github'):
+def _font_download(file_name, source='github'):
 
     global font_path
     
@@ -44,7 +44,7 @@ def font_setup():
 
     for file_name in file_names:
         if (not file_name in font_names) and (not os.path.exists(file_name)):
-            font_download(file_name)
+            _font_download(file_name)
 
     # font register 
     os.system('!fc-cache -f -v')
