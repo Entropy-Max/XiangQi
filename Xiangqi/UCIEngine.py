@@ -130,7 +130,7 @@ class UCIEngine:
 
                     results.append((depth, score_type, score, pv))
 
-        return {out,results}
+        return out
         
     def bestmove(self, fen, depth=10):
         """
