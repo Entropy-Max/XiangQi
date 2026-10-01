@@ -75,7 +75,10 @@ class PGN(FEN):
         if piece.upper() in ["N","B","A"]:  # Knight, Elephant, Advisor
             # Always show starting file + direction + target file
             direction = "进" if (dy < 0 and is_red) or (dy > 0 and not is_red) else "退"
-            notation = f"{name}{start_file}{direction}{end_file}"
+            if same:
+                notation = f"{front_rear}{name}{direction}{steps}"
+            else:
+                notation = f"{name}{start_file}{direction}{end_file}"
         else:  # Rook, Cannon, Pawn, King
             if sx == tx:  # vertical
                 if is_red:
@@ -89,13 +92,19 @@ class PGN(FEN):
                 else:
                     notation = f"{name}{start_file}{direction}{steps}"
             elif sy == ty:  # horizontal
-                notation = f"{name}{start_file}平{end_file}"
+                if same:
+                    notation = f"{front_rear}{name}{direction}{steps}"
+                else:
+                    notation = f"{name}{start_file}平{end_file}"
             else:  # uncommon diagonal (King in palace)
                 if is_red:
                     direction = "进" if ty < sy else "退"
                 else:
                     direction = "进" if ty > sy else "退"
-                notation = f"{name}{start_file}{direction}{end_file}"
+                if same:
+                    notation = f"{front_rear}{name}{direction}{steps}"
+                else:
+                    notation = f"{name}{start_file}{direction}{end_file}"
 
         # Update board
         self.board[sy][sx] = "."
