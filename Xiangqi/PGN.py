@@ -93,7 +93,7 @@ class PGN(FEN):
                     notation = f"{name}{start_file}{direction}{steps}"
             elif sy == ty:  # horizontal
                 if same:
-                    notation = f"{front_rear}{name}平{steps}"
+                    notation = f"{front_rear}{name}平{end_file}"
                 else:
                     notation = f"{name}{start_file}平{end_file}"
             else:  # uncommon diagonal (King in palace)
