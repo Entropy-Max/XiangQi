@@ -96,7 +96,7 @@ class UCIEngine:
         
         return moves
 
-    def gametype(self, fen):
+    def onestep(self, fen):
         """
         Analyze a Xiangqi position given by a FEN string.
         Returns the engine's best move and principal variation (PV).
@@ -130,7 +130,7 @@ class UCIEngine:
 
                     results.append((depth, score_type, score, pv))
 
-        return results
+        return {out,results}
         
     def bestmove(self, fen, depth=10):
         """
