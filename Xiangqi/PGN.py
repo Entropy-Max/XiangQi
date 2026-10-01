@@ -53,7 +53,7 @@ class PGN(FEN):
         same = []
 
         for r in range(len(self.board)):
-            if r != row and self.board[r][col] == piece:
+            if r != sy and self.board[r][sx] == piece:
                 same.append(r)
                 
         if same:
