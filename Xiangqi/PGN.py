@@ -93,7 +93,7 @@ class PGN(FEN):
                     notation = f"{name}{start_file}{direction}{steps}"
             elif sy == ty:  # horizontal
                 if same:
-                    notation = f"{front_rear}{name}{direction}{steps}"
+                    notation = f"{front_rear}{name}平{steps}"
                 else:
                     notation = f"{name}{start_file}平{end_file}"
             else:  # uncommon diagonal (King in palace)
@@ -101,10 +101,7 @@ class PGN(FEN):
                     direction = "进" if ty < sy else "退"
                 else:
                     direction = "进" if ty > sy else "退"
-                if same:
-                    notation = f"{front_rear}{name}{direction}{steps}"
-                else:
-                    notation = f"{name}{start_file}{direction}{end_file}"
+                notation = f"{name}{start_file}{direction}{end_file}"
 
         # Update board
         self.board[sy][sx] = "."
