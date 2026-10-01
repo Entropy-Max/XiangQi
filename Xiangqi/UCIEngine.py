@@ -96,7 +96,42 @@ class UCIEngine:
         
         return moves
 
+    def gametype(self, fen):
+        """
+        Analyze a Xiangqi position given by a FEN string.
+        Returns the engine's best move and principal variation (PV).
 
+        :param fen: str, Xiangqiselfnt, search depth
+        :return: tuple (bestmove, pv) where pv is a list of moves in UCI format
+        """
+        
+        # Start new game
+        self.write("ucinewgame")
+
+        # Load position
+        self.write(f"position fen {fen}")
+
+        # Ask engine to search
+        self.write(f"go depth 1")
+
+        out  = self.read_until("bestmove")
+
+        depth=[]
+        score_type=[]
+        score=[]
+        pv=[]
+        
+        for line in out:
+            # Parse info
+            if line.startswith("info"):
+                m = re.search(r"info depth (\d+).*?score (cp|mate) (-?\d+).*?pv (.+)",line)
+                if m:
+                    depth.append(int(m.group(1)))
+                    score_type.append(m.group(2))
+                    score.append(int(m.group(3)))
+                    pv.append(m.group(4).split())
+
+        return{depth,score_type,score,pv}
         
     def bestmove(self, fen, depth=10):
         """
