@@ -116,22 +116,21 @@ class UCIEngine:
 
         out  = self.read_until("bestmove")
 
-        depth=[]
-        score_type=[]
-        score=[]
-        pv=[]
+        results =[]
         
         for line in out:
             # Parse info
             if line.startswith("info"):
                 m = re.search(r"info depth (\d+).*?score (cp|mate) (-?\d+).*?pv (.+)",line)
                 if m:
-                    depth.append(int(m.group(1)))
-                    score_type.append(m.group(2))
-                    score.append(int(m.group(3)))
-                    pv.append(m.group(4).split())
+                    depth=int(m.group(1))
+                    score_type=m.group(2)
+                    score=int(m.group(3))
+                    pv=m.group(4).split()
 
-        return{depth,score_type,score,pv}
+                    results.append((depth, score_type, score, pv))
+
+        return results
         
     def bestmove(self, fen, depth=10):
         """
