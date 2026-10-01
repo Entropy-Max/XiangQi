@@ -59,10 +59,10 @@ class PGN(FEN):
         if same:
             # Red pieces: uppercase, Red moves toward decreasing row
             if piece.isupper():
-                front_rear = "前" if row < same[0] else "后"
+                front_rear = "前" if sy < same[0] else "后"
             # Black pieces: lowercase, Black moves toward increasing row
             else:
-                front_rear = "前" if row > same[0] else "后"
+                front_rear = "前" if sy > same[0] else "后"
 
         start_file = numerals_etc(9-sx) if is_red else str(sx+1)
         end_file = numerals_etc(9-tx)if is_red else str(tx+1)
