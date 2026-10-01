@@ -97,14 +97,7 @@ class UCIEngine:
         return moves
 
     def onestep(self, fen):
-        """
-        Analyze a Xiangqi position given by a FEN string.
-        Returns the engine's best move and principal variation (PV).
-
-        :param fen: str, Xiangqiselfnt, search depth
-        :return: tuple (bestmove, pv) where pv is a list of moves in UCI format
-        """
-        
+    
         # Start new game
         self.write("ucinewgame")
 
@@ -113,7 +106,13 @@ class UCIEngine:
 
         # Ask engine to search
         self.write(f"go depth 1")
-
+      
+        """
+        'info string classical evaluation enabled',
+        'info depth 1 seldepth 1 multipv 1 score cp -669 nodes 99 nps 33000 tbhits 0 time 3 pv g3g10 d10d9',
+        'bestmove g3g10 ponder d10d9'
+        """
+        
         out  = self.read_until("bestmove")
 
         results =[]
@@ -128,9 +127,9 @@ class UCIEngine:
                     score=int(m.group(3))
                     pv=m.group(4).split()
 
-                    results.append((depth, score_type, score, pv))
+                    results=(depth, score_type, score, pv)
 
-        return out
+        return results 
         
     def bestmove(self, fen, depth=10):
         """
