@@ -49,6 +49,21 @@ class PGN(FEN):
         is_red = piece.isupper()
         name = piece_map_etc[piece]
 
+        # Find same piece in the same file
+        same = []
+
+        for r in range(len(self.board)):
+            if r != row and self.board[r][col] == piece:
+                same.append(r)
+                
+        if same:
+            # Red pieces: uppercase, Red moves toward decreasing row
+            if piece.isupper():
+                front_rear = "前" if row < same[0] else "后"
+            # Black pieces: lowercase, Black moves toward increasing row
+            else:
+                front_rear = "前" if row > same[0] else "后"
+
         start_file = numerals_etc(9-sx) if is_red else str(sx+1)
         end_file = numerals_etc(9-tx)if is_red else str(tx+1)
 
@@ -69,7 +84,10 @@ class PGN(FEN):
                     direction = "进" if ty > sy else "退"
                 steps = abs(ty - sy)
                 if is_red: steps = numerals_etc(steps)
-                notation = f"{name}{start_file}{direction}{steps}"
+                if same:
+                    notation = f"{front_rear}{name}{direction}{steps}"
+                else:
+                    notation = f"{name}{start_file}{direction}{steps}"
             elif sy == ty:  # horizontal
                 notation = f"{name}{start_file}平{end_file}"
             else:  # uncommon diagonal (King in palace)
