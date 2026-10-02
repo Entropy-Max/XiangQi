@@ -191,6 +191,10 @@ class UCIEngine:
 
         out = self.read_until("bestmove")
 
+        """
+        info depth 27 seldepth 59 multipv 1 score cp 0 nodes 6509485 nps 476396 hashfull 999 tbhits 0 time 13664 pv g7f7 
+        """
+
         bestmove = None
         pv_list = []   # list of (multipv index, score, pv_moves)
 
