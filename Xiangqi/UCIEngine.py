@@ -234,6 +234,7 @@ class UCIEngine:
         pv_list.sort(key=lambda x: x[0])
 
         return {
+            "out":out,
             "bestmove": bestmove,
             "pv": pv_list
         }
