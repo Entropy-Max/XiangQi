@@ -176,7 +176,7 @@ class UCIEngine:
             "pv": pv_moves
         }
         
-    def multipv(self, fen, depth=1, multipv=200):
+    def multipv(self, fen, depth=1, multipv=20):
         """Return {bestmove, pv_list}."""
 
         # Start new game
