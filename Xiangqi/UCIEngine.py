@@ -96,7 +96,7 @@ class UCIEngine:
         
         return moves
 
-    def onestep(self, fen):
+    def onemove(self, fen):
     
         # Start new game
         self.write("ucinewgame")
@@ -125,11 +125,12 @@ class UCIEngine:
                     depth=int(m.group(1))
                     score_type=m.group(2)
                     score=int(m.group(3))
-                    pv=m.group(4).split()
+                    pv=m.group(4).split()               
 
-                    results=(depth, score_type, score, pv)
-
-        return results 
+        return {"depth": depth, 
+                "score_type": score_type, 
+                "score":score, 
+                "pv":pv}
         
     def bestmove(self, fen, depth=10):
         """
@@ -203,6 +204,10 @@ class UCIEngine:
             # info depth 12 multipv 1 score cp 38 pv h2e2 e3e7 …
             if " pv " in l and "multipv" in l:
                 parts = l.split()
+
+                idx = parts.index("depth")
+                depth_idx = int(parts[idx + 1])
+                
                 idx = parts.index("multipv")
                 pv_idx = int(parts[idx + 1])
 
@@ -223,9 +228,9 @@ class UCIEngine:
                 
                 pv_moves = l.split(" pv ")[1].split()
 
-                pv_list.append((pv_idx, score, pv_moves))
+                pv_list.append((depth_idx, pv_idx, score, pv_moves))
 
-        # Sort PV lines by multipv index
+        # Sort PV lines by depth index
         pv_list.sort(key=lambda x: x[0])
 
         return {
