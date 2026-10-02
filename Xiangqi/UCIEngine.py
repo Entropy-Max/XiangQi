@@ -186,6 +186,9 @@ class UCIEngine:
         if multipv > 1:
             self.write(f"setoption name MultiPV value {multipv}")
 
+        self.write("isready")
+        self.read_until("readyok")
+    
         self.write(f"position fen {fen}")
         self.write(f"go depth {depth}")
 
@@ -235,7 +238,7 @@ class UCIEngine:
                 pv_list.append((depth_idx, pv_idx, score, pv_moves))
 
         # Sort PV lines by depth index
-        pv_list.sort(key=lambda x: x[0])
+        pv_list.sort(key=lambda x: (x[0],x[1]))
 
         return {
             "out":out,
