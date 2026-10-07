@@ -2,6 +2,87 @@ from Xiangqi.common import *
 from Xiangqi.FEN import FEN
 import re
 
+def DPXQ(binit,movelist):
+
+    # (0,0) 左红车
+
+    #         file
+    #         0  1  2  3  4  5  6  7  8  
+    # rank 9  r  n  b  a  k  a  b  n  r   
+    # rank 8  .  .  .  .  .  .  .  .  .  
+    # rank 7  .  c  .  .  .  .  .  c  .
+    # rank 6  p  .  p  .  p  .  p  .  p  
+    # rank 5  .  .  .  .  .  .  .  .  . 
+    # rank 4  .  .  .  .  .  .  .  .  .  
+    # rank 3  P  .  P  .  P  .  P  .  P  
+    # rank 2  .  C  .  .  .  .  .  C  . 
+    # rank 1  .  .  .  .  .  .  .  .  .   
+    # rank 0  R  N  B  A  K  A  B  N  R
+
+    pieces='rnbakabnrccpppppRNBAKABNRCCPPPPP'
+
+    # Split into 2-digit positions
+    positions = [binit[i:i+2] for i in range(0, len(binit), 2)]
+
+    # Create 10 x 9 empty matrix
+    board = [['.' for _ in range(9)] for _ in range(10)]
+
+    # Put pieces at each occupied position
+    for piece, pos in zip(pieces,positions):    
+        file = int(pos[0])
+        rank = int(pos[1])
+        board[9 - rank][file] = piece # [row][column]
+
+    # Print
+    # print('   ' + ' '.join(str(f) for f in range(9)))
+
+    # for rank, row in zip(range(9, -1, -1), board):
+    #   print(f'{rank}: ' + ' '.join(row))
+
+    # Every move = 4 digits  
+    # from_file from_rank to_file to_rank  
+
+    # (0,0) 右黑车
+
+    #         file
+    #         0  1  2  3  4  5  6  7  8  
+    #         a  b  c  d  e  f  g  h  i
+    # rank 0  r  n  b  a  k  a  b  n  r   
+    # rank 1  .  .  .  .  .  .  .  .  .  
+    # rank 2  .  c  .  .  .  .  .  c  .
+    # rank 3  p  .  p  .  p  .  p  .  p  
+    # rank 4  .  .  .  .  .  .  .  .  . 
+    # rank 5  .  .  .  .  .  .  .  .  .  
+    # rank 6  P  .  P  .  P  .  P  .  P  
+    # rank 7  .  C  .  .  .  .  .  C  . 
+    # rank 8  .  .  .  .  .  .  .  .  .   
+    # rank 9  R  N  B  A  K  A  B  N  R
+
+    files = "abcdefghi"
+
+    moves = [
+        movelist[i:i+4]
+        for i in range(0, len(movelist), 4)
+    ]
+
+    uci_moves = []
+
+    for move in moves:
+        from_file, from_rank, to_file, to_rank = map(int, move)
+
+        #piece = board[from_rank][from_file]
+        #print(piece)
+
+        uci = (
+            files[from_file] + str(10-from_rank) +
+            files[to_file]   + str(10-to_rank)
+        )
+
+        uci_moves.append(uci)
+
+    return uci_moves
+    
+
 class PGN(FEN):
 
     def __init__(self,start_fen,pgn):
