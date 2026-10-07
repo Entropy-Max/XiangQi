@@ -76,8 +76,7 @@ class PGN(FEN):
             # Always show starting file + direction + target file
             direction = "进" if (dy < 0 and is_red) or (dy > 0 and not is_red) else "退"
             if same:
-                steps = dy
-                notation = f"{front_rear}{name}{direction}{steps}"
+                notation = f"{front_rear}{name}{direction}{end_file}"
             else:
                 notation = f"{name}{start_file}{direction}{end_file}"
         else:  # Rook, Cannon, Pawn, King
