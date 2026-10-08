@@ -5,7 +5,7 @@ import re
 from Xiangqi import *
 
 class UCIEngine:
-    def __init__(self, ENGINE_PATH, NNUE_PATH):
+    def __init__(self, ENGINE_PATH, NNUE, NNUE_PATH):
 
         self.proc = subprocess.Popen(
             [ENGINE_PATH],
@@ -37,7 +37,7 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
-        if NNUE_PATH:
+        if NNUE:
             self.write(f"setoption name EvalFile value {NNUE_PATH}")
             self.write(f"setoption name Use NNUE value true")
         else:
