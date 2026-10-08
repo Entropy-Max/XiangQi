@@ -24,16 +24,25 @@ class UCIEngine:
         
         print("Engine starts up ...... ready!")
 
-        # Init
-        self.write("uci")
+        # Initialize UCI  
+        self.write("uci")  # tell engine to enter UCI mode
         self.read_until("uciok")
+
+        # Make sure engine is ready
+        self.write("isready")
+        self.read_until("readyok")
         
         # Set Xiangqi variant if needed
         self.write("setoption name UCI_Variant value xiangqi")
         self.write("isready")
         self.read_until("readyok")
 
-        self.write(f"setoption name EvalFile value {NNUE_PATH}")
+        if NNUE_PATH:
+            self.write(f"setoption name EvalFile value {NNUE_PATH}")
+            self.write(f"setoption name Use NNUE value true")
+        else:
+            self.write(f"setoption name Use NNUE value false")
+
         self.write("isready")
         self.read_until("readyok")
 
