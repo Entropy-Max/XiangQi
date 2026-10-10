@@ -282,6 +282,7 @@ class UCIEngine:
         return score
 
     def _eval_fen(self, fen):
+        # red/black??
         self.write(f"position fen '{fen}'")
         self.write("eval")
         output= self.read_until("Final")
