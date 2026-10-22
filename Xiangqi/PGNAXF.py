@@ -4,7 +4,14 @@ class PGNAXF():
     def __init__(self,moves):
         self.AXF = moves
         self.CHN = moves
-    
+        self.WXF = moves
+
+    def WXF_AXF(self):
+        self.AXF = self.WXF.replace(".", "=")
+
+    def AXF_WXF(self):
+        self.WXF = self.AXF.replace("=", ".")
+        
     def AXF_CHN(self):
 
         self.CHN = []
