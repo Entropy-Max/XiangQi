@@ -27,6 +27,7 @@ class FEN:
 
         self.turn_red = True
         if len(fenparts)>1:
+            # usually six parts, ignore the rest parts
             self.turn_red = fenparts[1].lower() in ['w','r']
 
         self.fen = fenparts[0]   
@@ -34,12 +35,12 @@ class FEN:
         
         self.board = []
         self._to_matrix()
-        self.valid()
+        self.validate()
       
     def __str__(self):
         return f"FEN(fen={self.fen})"
 
-    def valid(self):
+    def validate(self):
 
         valid = True 
         
@@ -53,9 +54,12 @@ class FEN:
                 print(f"Warning: 9 files expected in rank {rank}")
 
             for each in rank: 
-                if not(each in 'PRCBANKprcbank12345678.'):
+                if not(each in 'PRCBANKprcbank123456789.'):
                     valid = False
-                    print("PRCBANKprcbank12345678. expected!")
+                    print("PRCBANKprcbank123456789. expected!")
+
+        # validate pieces numbers 
+        # validate pieces mobility regime 
 
     def _to_matrix(self):
 
