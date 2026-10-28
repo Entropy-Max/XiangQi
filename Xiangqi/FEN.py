@@ -33,7 +33,7 @@ class FEN:
         self.fen = fenparts[0]   
         self.fens=[self.fen]
         
-        self.board = []
+        self.board = [] # matrix 
         self._to_matrix()
         self.validate()
       
