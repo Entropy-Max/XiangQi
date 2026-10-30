@@ -1,4 +1,5 @@
 from Xiangqi import *
+import pyffish
 
 def heatmap_onestep(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
 
