@@ -61,7 +61,7 @@ def heatmap(BASE_FEN,piece):
                 fen.board[r][file]=piece
 
                 fen._from_matrix()
-                v = game_result('Xiangqi', fen.fen, [])
+                v = pyffish.game_result('Xiangqi', fen.fen, [])
 
             else:
                 v = 0
