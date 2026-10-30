@@ -44,7 +44,7 @@ def heatmap_onestep(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
           
     return heatmap_data
 
-def heatmap(engine,BASE_FEN,piece):
+def heatmap(BASE_FEN,piece):
 
     # heatmap[rank][file] # rank 0..9, file 0..8
 
