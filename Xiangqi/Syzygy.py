@@ -1,6 +1,6 @@
 from Xiangqi import *
 
-def heatmap(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
+def heatmap_onestep(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
 
     if NNUE:
         base_eval = engine._nnue_eval_fen(BASE_FEN_0)
@@ -37,6 +37,32 @@ def heatmap(engine,BASE_FEN_0,BASE_FEN_1,piece,NNUE=None):
                     v = - engine._eval_fen(BASE_FEN_1)
                 else:
                     v = v - base_eval
+            else:
+                v = 0
+
+            heatmap_data[rank][file] = v
+          
+    return heatmap_data
+
+def heatmap(engine,BASE_FEN,piece):
+
+    # heatmap[rank][file] # rank 0..9, file 0..8
+
+    heatmap_data = [[0.0 for _ in range(9)] for _ in range(10)]
+
+    for rank in range(10):
+        for file in range(9):
+            fen=FEN(BASE_FEN)
+            fen._to_matrix()
+
+            r = 9 - rank
+
+            if fen.board[r][file]== '.':
+                fen.board[r][file]=piece
+
+                fen._from_matrix()
+                v = game_result('Xiangqi', fen.fen, [])
+
             else:
                 v = 0
 
