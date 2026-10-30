@@ -62,6 +62,7 @@ def heatmap(BASE_FEN,piece):
                 fen.board[r][file]=piece
 
                 fen._from_matrix()
+                # consider best move as moves
                 v = pyffish.game_result('Xiangqi', fen.fen, [])
 
             else:
