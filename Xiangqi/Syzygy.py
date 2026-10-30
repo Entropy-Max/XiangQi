@@ -64,7 +64,7 @@ def heatmap(engine,BASE_FEN,piece):
                 fen._from_matrix()
                 # consider best move as moves
                 moves = engine.bestmove(fen.fen,100)
-                v = pyffish.game_result('Xiangqi', fen.fen,moves)
+                v = pyffish.game_result('Xiangqi', fen.fen,moves['pv'])
 
             else:
                 v = 0
