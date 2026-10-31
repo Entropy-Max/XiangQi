@@ -189,7 +189,7 @@ class PGN(FEN):
         self.board[ty][tx] = piece
 
         self._from_matrix()
-        self.fens.append(self.fen)
+        self.fens.append(self.fen + ' ' + self.turn_red)
 
         # Alternate side
         self.turn_red = not self.turn_red
