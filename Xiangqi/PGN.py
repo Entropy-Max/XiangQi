@@ -83,9 +83,9 @@ def DPXQ(binit,movelist):
     return uci_moves
     
 
-class PGN(FEN, notation=10):
+class PGN(FEN):
 
-    def __init__(self,start_fen,pgn):
+    def __init__(self,start_fen,pgn, notation=10):
         super().__init__(start_fen)
         self.moves = pgn
         self.movesCHN=[]
