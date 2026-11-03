@@ -119,7 +119,7 @@ class PGN(FEN):
         sx = ord(m.group(1)) - ord("a")
         sy = notation - int(m.group(2))
         tx = ord(m.group(3)) - ord("a")
-        ty = notation - int(m.group(4))
+        ty = self.notation - int(m.group(4))
 
         return sx,sy,tx,ty
 
