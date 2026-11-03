@@ -88,6 +88,7 @@ class PGN(FEN):
     def __init__(self,start_fen,pgn, notation=10):
         super().__init__(start_fen)
         self.moves = pgn
+        self.notation = notation
         self.movesCHN=[]
         self.piece_counts = {}
         self.piece_moves = {}
@@ -108,9 +109,9 @@ class PGN(FEN):
         if not(len(move) in (4,5,6)):
             raise ValueError("Parse move: length of move must be 4!")
 
-        if notation==10:
+        if self.notation==10:
             m = re.fullmatch(r"([a-i])(10|[1-9])([a-i])(10|[1-9])", move)
-        elif notation==9:
+        elif self.notation==9:
             m = re.fullmatch(r"([a-i])([0-9])([a-i])([0-9])", move)
         if not m:
             raise ValueError("Parse move: Check Regular Expressions!")
