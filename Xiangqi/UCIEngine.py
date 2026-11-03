@@ -290,7 +290,7 @@ class UCIEngine:
 
 
     def nnue(self, fens):
-        self.write("ucinewgame")
+        #self.write("ucinewgame")
         self.write("setoption name Use NNUE value true")
        
         score=[]
@@ -311,7 +311,7 @@ class UCIEngine:
 
 
     def eval(self, fens):
-        self.write("ucinewgame")
+        #self.write("ucinewgame")
         self.write("setoption name Use NNUE value false")
         
         score=[]
