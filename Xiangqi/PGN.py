@@ -210,8 +210,8 @@ class PGN(FEN):
 
         for mv in self.moves:
             try:
-                sx,sy,tx,ty = self._parse_move(self,mv)
-                out_text = self._apply_move(self,sx,sy,tx,ty)
+                sx,sy,tx,ty = self._parse_move(mv)
+                out_text = self._apply_move(sx,sy,tx,ty)
                 self.movesCHN.append(out_text)
 
             except Exception as e:
