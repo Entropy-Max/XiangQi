@@ -155,15 +155,15 @@ class PGN(FEN):
         dx = tx - sx
         dy = ty - sy
 
-        notation = ""
+        out_text = ""
 
         if piece.upper() in ["N","B","A"]:  # Knight, Elephant, Advisor
             # Always show starting file + direction + target file
             direction = "进" if (dy < 0 and is_red) or (dy > 0 and not is_red) else "退"
             if same:
-                notation = f"{front_rear}{name}{direction}{end_file}"
+                out_text = f"{front_rear}{name}{direction}{end_file}"
             else:
-                notation = f"{name}{start_file}{direction}{end_file}"
+                out_text = f"{name}{start_file}{direction}{end_file}"
         else:  # Rook, Cannon, Pawn, King
             if sx == tx:  # vertical
                 if is_red:
@@ -173,20 +173,20 @@ class PGN(FEN):
                 steps = abs(ty - sy)
                 if is_red: steps = numerals_etc(steps)
                 if same:
-                    notation = f"{front_rear}{name}{direction}{steps}"
+                    out_text = f"{front_rear}{name}{direction}{steps}"
                 else:
-                    notation = f"{name}{start_file}{direction}{steps}"
+                    out_text = f"{name}{start_file}{direction}{steps}"
             elif sy == ty:  # horizontal
                 if same:
-                    notation = f"{front_rear}{name}平{end_file}"
+                    out_text = f"{front_rear}{name}平{end_file}"
                 else:
-                    notation = f"{name}{start_file}平{end_file}"
+                    out_text = f"{name}{start_file}平{end_file}"
             else:  # uncommon diagonal (King in palace)
                 if is_red:
                     direction = "进" if ty < sy else "退"
                 else:
                     direction = "进" if ty > sy else "退"
-                notation = f"{name}{start_file}{direction}{end_file}"
+                out_text = f"{name}{start_file}{direction}{end_file}"
 
         # Update board
         self.board[sy][sx] = "."
@@ -201,7 +201,7 @@ class PGN(FEN):
         # Alternate side
         self.turn_red = not self.turn_red
 
-        return notation
+        return out_text
 
 
     def moves_etc(self):
@@ -211,8 +211,8 @@ class PGN(FEN):
         for mv in self.moves:
             try:
                 sx,sy,tx,ty = self._parse_move(self,mv)
-                notation = self._apply_move(sx,sy,tx,ty)
-                self.movesCHN.append(notation)
+                out_text = self._apply_move(self,sx,sy,tx,ty)
+                self.movesCHN.append(out_text)
 
             except Exception as e:
                 print(e)
