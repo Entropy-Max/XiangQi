@@ -3,7 +3,7 @@ from Xiangqi.FEN import FEN
 import re
 
 def DPXQ(binit,movelist):
-
+ 
     # (0,0) 左红车
 
     #         file
