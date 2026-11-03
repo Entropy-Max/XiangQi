@@ -117,7 +117,7 @@ class UCIEngine:
         for line in out:
             # Parse Legal moves:
             line = line.strip()
-            if ":" in line and "Nodes" not in line:
+            if ":" in line and not any(x in line for x in ["Nodes", "info string"]):
                 move = line.split(":")[0].strip()
                 moves.append(move)
         
