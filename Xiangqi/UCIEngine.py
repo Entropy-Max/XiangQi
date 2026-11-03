@@ -59,11 +59,14 @@ class UCIEngine:
     
         
     def reader(self):
-        for line in self.proc.stdout:
-            if isinstance(line, bytes):
-                line = line.decode()
-            line = line.strip()
-            self.q.put(line)
+        try:
+            for line in self.proc.stdout:
+                if isinstance(line, bytes):
+                    line = line.decode()
+                line = line.strip()
+                self.q.put(line)
+        finally:
+            self.q.put(None)
 
     def read_line(self, timeout=1.0):
         try:
@@ -71,20 +74,35 @@ class UCIEngine:
         except queue.Empty:
             return None
         
-    def read_until(self, keyword):
+    def read_until(self, keyword, timeout=600):
+        import time
+
         lines = []
+        start = time.monotonic()
+
         while True:
+            if time.monotonic() - start > timeout:
+                raise TimeoutError(
+                    f"Timeout waiting for {keyword}. "
+                    f"Engine alive: {self.is_alive()}"
+                )
+
             try:
-                line = self.q.get(timeout=1)
+                line = self.q.get(timeout=0.2)
             except queue.Empty:
-                break
-            if isinstance(line, bytes):
-                line = line.decode()
-            line = line.strip()
+                if not self.is_alive():
+                    raise RuntimeError(
+                        f"Engine terminated. Return code: {self.proc.poll()}"
+                    )
+                continue
+
+            if line is None:
+                raise RuntimeError("Engine stdout closed.")
+
             lines.append(line)
+
             if keyword in line:
-                break
-        return lines
+                return lines
 
     def legal_moves(self, fen): 
         self.write(f"position fen {fen}")
