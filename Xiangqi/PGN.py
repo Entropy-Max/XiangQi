@@ -97,7 +97,7 @@ class PGN(FEN):
     # UCI moves
 
     @staticmethod
-    def _parse_move(move):
+    def _parse_move(self,move):
         # 10 abcdefghi (0,0)
         # 9
         # ...
