@@ -83,7 +83,7 @@ def DPXQ(binit,movelist):
     return uci_moves
     
 
-class PGN(FEN):
+class PGN(FEN, notation=10):
 
     def __init__(self,start_fen,pgn):
         super().__init__(start_fen)
@@ -108,14 +108,17 @@ class PGN(FEN):
         if not(len(move) in (4,5,6)):
             raise ValueError("Parse move: length of move must be 4!")
 
-        m = re.fullmatch(r"([a-i])(10|[1-9])([a-i])(10|[1-9])", move)
+        if notation=10:
+            m = re.fullmatch(r"([a-i])(10|[1-9])([a-i])(10|[1-9])", move)
+        else if notation=9:
+            m = re.fullmatch(r"([a-i])([0-9])([a-i])([0-9])", move)
         if not m:
-            raise ValueError("Parse move: Regular Expressions!")
+            raise ValueError("Parse move: Check Regular Expressions!")
 
         sx = ord(m.group(1)) - ord("a")
-        sy = 10 - int(m.group(2))
+        sy = notation - int(m.group(2))
         tx = ord(m.group(3)) - ord("a")
-        ty = 10 - int(m.group(4))
+        ty = notation - int(m.group(4))
 
         return sx,sy,tx,ty
 
