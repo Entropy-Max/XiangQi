@@ -7,7 +7,7 @@ def _engine_download(ENGINE_PATH, source="xiangqi"):
     file_name = os.path.basename(ENGINE_PATH)
   
     if source.lower()=='xiangqi':
-        url = "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairyxq"
+        url = f"https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/{file_name}"
     else:
         url = "https://github.com/fairy-stockfish/Fairy-Stockfish/releases/latest/download/fairy-stockfish-largeboard_x86-64"
 
@@ -15,7 +15,7 @@ def _engine_download(ENGINE_PATH, source="xiangqi"):
     with open(file_name, "wb") as f:
         f.write(r.content)
     
-    print("Fairy Stockfish downloading ...... done!")
+    print(f"{file_name} downloading ...... done!")
 
 def engine_setup(ENGINE_PATH): 
   
@@ -26,5 +26,5 @@ def engine_setup(ENGINE_PATH):
   file_name = os.path.basename(ENGINE_PATH)
   os.system(f"chmod +x {file_name}")
   
-  print("Fairy Stockfish engine starting up ...... done!")
+  print(f"{file_name} engine starting up ...... done!")
   
