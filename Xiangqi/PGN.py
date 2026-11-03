@@ -108,9 +108,9 @@ class PGN(FEN, notation=10):
         if not(len(move) in (4,5,6)):
             raise ValueError("Parse move: length of move must be 4!")
 
-        if notation=10:
+        if notation==10:
             m = re.fullmatch(r"([a-i])(10|[1-9])([a-i])(10|[1-9])", move)
-        else if notation=9:
+        else if notation==9:
             m = re.fullmatch(r"([a-i])([0-9])([a-i])([0-9])", move)
         if not m:
             raise ValueError("Parse move: Check Regular Expressions!")
