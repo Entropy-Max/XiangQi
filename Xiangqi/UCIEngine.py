@@ -74,35 +74,20 @@ class UCIEngine:
         except queue.Empty:
             return None
         
-    def read_until(self, keyword, timeout=600):
-        import time
-
-        lines = []
-        start = time.monotonic()
-
-        while True:
-            if time.monotonic() - start > timeout:
-                raise TimeoutError(
-                    f"Timeout waiting for {keyword}. "
-                    f"Engine alive: {self.is_alive()}"
-                )
-
-            try:
-                line = self.q.get(timeout=0.2)
-            except queue.Empty:
-                if not self.is_alive():
-                    raise RuntimeError(
-                        f"Engine terminated. Return code: {self.proc.poll()}"
-                    )
-                continue
-
-            if line is None:
-                raise RuntimeError("Engine stdout closed.")
-
-            lines.append(line)
-
-            if keyword in line:
-                return lines
+    def read_until(self, keyword):  
+        lines = []  
+        while True:  
+            try:  
+                line = self.q.get(timeout=1)  
+            except queue.Empty:  
+                break  
+            if isinstance(line, bytes):  
+                line = line.decode()  
+            line = line.strip()  
+            lines.append(line)  
+            if keyword in line:  
+                break  
+        return lines
 
     def legal_moves(self, fen): 
         self.write(f"position fen {fen}")
