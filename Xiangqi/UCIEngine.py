@@ -178,6 +178,7 @@ class UCIEngine:
         self.write(f"go depth {depth}")
 
         bestmove = None
+        ponder = None
         pv_moves = []
 
         out  = self.read_until("bestmove")
@@ -189,7 +190,7 @@ class UCIEngine:
                 bestmove = parts[1]
                 # Check if there is ponder move
                 if len(parts) >= 4 and parts[2] == "ponder":
-                    pv_moves.append(parts[3])
+                    ponder.append(parts[3])
 
             # Parse PV from info lines
             if " pv " in line:
@@ -200,7 +201,8 @@ class UCIEngine:
 
         return {
             "bestmove": bestmove, 
-            "pv": pv_moves
+            "pv": pv_moves,
+            "ponder": ponder
         }
         
     def multipv(self, fen, depth=1, multipv=20):
