@@ -126,7 +126,7 @@ class UCIEngine:
     def onemove(self, fen):
     
         # Start new game
-        self.write("ucinewgame")
+        #self.write("ucinewgame")
 
         # Load position
         self.write(f"position fen {fen}")
@@ -169,7 +169,7 @@ class UCIEngine:
         """
         
         # Start new game
-        self.write("ucinewgame")
+        #self.write("ucinewgame")
 
         # Load position
         self.write(f"position fen {fen}")
@@ -207,7 +207,7 @@ class UCIEngine:
         """Return {bestmove, pv_list}."""
 
         # Start new game
-        self.write("ucinewgame")
+        #self.write("ucinewgame")
 
         # Send multipv
         if multipv > 1:
