@@ -190,7 +190,7 @@ class UCIEngine:
                 bestmove = parts[1]
                 # Check if there is ponder move
                 if len(parts) >= 4 and parts[2] == "ponder":
-                    ponder.append(parts[3])
+                    ponder=parts[3]
 
             # Parse PV from info lines
             if " pv " in line:
