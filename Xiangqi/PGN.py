@@ -196,7 +196,7 @@ class PGN(FEN):
         if self.turn_red:
             self.fens.append(self.fen + ' b - - 0 1')
         else:
-            self.fens.append(self.fen + ' r - - 0 1')
+            self.fens.append(self.fen + ' w - - 0 1')
 
         # Alternate side
         self.turn_red = not self.turn_red
