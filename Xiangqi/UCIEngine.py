@@ -11,7 +11,7 @@ from Xiangqi import *
 class UCIEngine:
     def __init__(self, backend='fairyxq'):
 
-        engine_setup(backend=backend)
+        self.engine_setup(backend=backend)
         
         self.proc = subprocess.Popen(
             [os.path.join(os.getcwd(), backend)],
