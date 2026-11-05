@@ -4,7 +4,6 @@ BLANK_FEN = "9/9/9/9/9/9/9/9/9/9"
 
 # engine 
 
-ENGINE_PATH = 'fairyxq'
 NNUE_PATH = 'xiangqi-c07e94a5c7cb.nnue'
 
 # moves
