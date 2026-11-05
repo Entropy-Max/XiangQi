@@ -53,7 +53,7 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
-    def engine_setup(backend="fairyxq"): 
+    def engine_setup(self, backend="fairyxq"): 
         # download engine and nnue weights
         if not os.path.exists(backend):
             if backend.lower()=='fairyxq':
