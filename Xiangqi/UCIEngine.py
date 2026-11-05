@@ -8,7 +8,7 @@ class UCIEngine:
     def __init__(self, backend='fairyxq'):
 
         self.proc = subprocess.Popen(
-            [ENGINE_PATH],
+            [backend],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
