@@ -29,6 +29,7 @@ def engine_setup(backend="fairyxq"):
     # Make it executable
     file_name = os.path.basename(backend)
     os.system(f"chmod +x {file_name}")
-  
-    print(f"{file_name} engine starting up ...... done!")
+
+    if os.access(backend, os.X_OK):
+        print(f"{file_name} engine starting up ...... done!")
   
