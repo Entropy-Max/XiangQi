@@ -3,11 +3,16 @@ import subprocess
 import threading
 import queue
 import re
+from urllib.parse import urlparse
+import requests
 from Xiangqi import *
+
 
 class UCIEngine:
     def __init__(self, backend='fairyxq'):
 
+        engine_setup(backend=backend)
+        
         self.proc = subprocess.Popen(
             [os.path.join(os.getcwd(), backend)],
             stdin=subprocess.PIPE,
@@ -48,6 +53,35 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
+    def engine_setup(backend="fairyxq"): 
+        # download engine and nnue weights
+        if not os.path.exists(backend):
+            if backend.lower()=='fairyxq':
+                url = ["https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairyxq"]
+                #url = ["https://github.com/fairy-stockfish/Fairy-Stockfish/releases/latest/download/fairy-stockfish-largeboard_x86-64"]
+            elif backend.lower()=='stockfishnnue':
+                url=[]
+            elif backend.lower()=='pikafish':
+                print("Pikafish requires NNUE net file!")
+                url = ["https://github.com/official-pikafish/Networks/releases/download/master-net/pikafish.nnue",
+                    "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/pikafish"]
+
+            for each in url:
+                r = requests.get(each,stream=True)
+                r.raise_for_status()
+                file_name= os.path.basename(urlparse(each).path)
+                with open(file_name, "wb") as f:
+                    f.write(r.content)
+                print(f"{file_name} downloading ...... done!")
+
+        # Make it executable
+        file_name = os.path.basename(backend)
+        os.system(f"chmod +x {file_name}")
+
+        if os.access(backend, os.X_OK):
+            print(f"{file_name} engine starting up ...... done!")
+
+    
     def is_alive(self):
         return self.proc.poll() is None
 
