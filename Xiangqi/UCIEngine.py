@@ -1,3 +1,4 @@
+import os
 import subprocess
 import threading
 import queue
@@ -8,11 +9,10 @@ class UCIEngine:
     def __init__(self, backend='fairyxq'):
 
         self.proc = subprocess.Popen(
-            [backend],
+            [os.getcwd()+ '/' + backend],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            universal_newlines=True,
             text=True,
             bufsize=1
         )
