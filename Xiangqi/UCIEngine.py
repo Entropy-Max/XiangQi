@@ -5,7 +5,7 @@ import re
 from Xiangqi import *
 
 class UCIEngine:
-    def __init__(self, ENGINE_PATH, NNUE, NNUE_PATH):
+    def __init__(self, backend='fairyxq'):
 
         self.proc = subprocess.Popen(
             [ENGINE_PATH],
@@ -37,11 +37,13 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
-        if NNUE:
+        if backend.lower=='fairystockfishnnue':
             self.write(f"setoption name EvalFile value {NNUE_PATH}")
             self.write(f"setoption name Use NNUE value true")
-        else:
+        elif backend.lower=="fairyxq":
             self.write(f"setoption name Use NNUE value false")
+        elif backend.lower=="pikafish":
+            self.write(f"setoption name Use NNUE value true")
 
         self.write("isready")
         self.read_until("readyok")
