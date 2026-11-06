@@ -194,9 +194,9 @@ class PGN(FEN):
 
         self._from_matrix()
         if self.turn_red:
-            self.fens.append(self.fen + ' b - - 0 1')
+            self.fens.append(self.fen + ' b')
         else:
-            self.fens.append(self.fen + ' w - - 0 1')
+            self.fens.append(self.fen + ' w')
 
         # Alternate side
         self.turn_red = not self.turn_red
