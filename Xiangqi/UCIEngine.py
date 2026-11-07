@@ -110,7 +110,7 @@ class UCIEngine:
         except queue.Empty:
             return None
         
-    def read_until(self, keyword, timeout):  
+    def read_until(self, keyword, timeout=1.0):  
         lines = []  
         while True:  
             try:  
@@ -312,7 +312,10 @@ class UCIEngine:
         self.proc.terminate()
     
     def _nnue_eval_fen(self, fen):
-
+        self.write("ucinewgame")
+        self.write("isready")
+        self.read_until("readyok")
+        
         self.write(f"position fen '{fen}'")
         self.write("eval")
         output= self.read_until("Final")
@@ -323,7 +326,7 @@ class UCIEngine:
 
 
     def nnue(self, fens):
-        #self.write("ucinewgame")
+
         self.write("setoption name Use NNUE value true")
        
         score=[]
@@ -333,7 +336,10 @@ class UCIEngine:
         return score
 
     def _eval_fen(self, fen):
-        # red/black??
+        self.write("ucinewgame")
+        self.write("isready")
+        self.read_until("readyok")
+
         self.write(f"position fen '{fen}'")
         self.write("eval")
         output= self.read_until("Final")
@@ -344,7 +350,7 @@ class UCIEngine:
 
 
     def eval(self, fens):
-        #self.write("ucinewgame")
+        
         self.write("setoption name Use NNUE value false")
         
         score=[]
