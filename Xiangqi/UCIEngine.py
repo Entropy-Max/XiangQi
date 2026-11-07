@@ -110,11 +110,11 @@ class UCIEngine:
         except queue.Empty:
             return None
         
-    def read_until(self, keyword):  
+    def read_until(self, keyword, timeout):  
         lines = []  
         while True:  
             try:  
-                line = self.q.get(timeout=1)  
+                line = self.q.get(timeout=timeout)  
             except queue.Empty:  
                 break  
             if isinstance(line, bytes):  
@@ -126,6 +126,10 @@ class UCIEngine:
         return lines
 
     def legal_moves(self, fen): 
+        self.write("ucinewgame")
+        self.write("isready")
+        self.read_until("readyok")
+        
         self.write(f"position fen {fen}")
         self.write("go perft 1")
         out = self.read_until("Nodes searched:")
@@ -147,7 +151,9 @@ class UCIEngine:
     def onemove(self, fen):
     
         # Start new game
-        #self.write("ucinewgame")
+        self.write("ucinewgame")
+        self.write("isready")
+        self.read_until("readyok")
 
         # Load position
         self.write(f"position fen {fen}")
@@ -180,7 +186,7 @@ class UCIEngine:
                 "score":score, 
                 "pv":pv}
         
-    def bestmove(self, fen, depth=10):
+    def bestmove(self, fen, depth=10,timeout=1.0):
         """
         Analyze a Xiangqi position given by a FEN string.
         Returns the engine's best move and principal variation (PV).
@@ -190,7 +196,9 @@ class UCIEngine:
         """
         
         # Start new game
-        #self.write("ucinewgame")
+        self.write("ucinewgame")
+        self.write("isready")
+        self.read_until("readyok")
 
         # Load position
         self.write(f"position fen {fen}")
@@ -202,7 +210,7 @@ class UCIEngine:
         ponder = None
         pv_moves = []
 
-        out  = self.read_until("bestmove")
+        out  = self.read_until("bestmove",timeout)
 
         for line in out:
             # Parse bestmove
@@ -230,7 +238,9 @@ class UCIEngine:
         """Return {bestmove, pv_list}."""
 
         # Start new game
-        #self.write("ucinewgame")
+        self.write("ucinewgame")
+        self.write("isready")
+        self.read_until("readyok")
 
         # Send multipv
         if multipv > 1:
