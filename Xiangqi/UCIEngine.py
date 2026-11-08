@@ -311,50 +311,45 @@ class UCIEngine:
         self.write("quit")
         self.proc.terminate()
     
-    def _nnue_eval_fen(self, fen):
-        self.write("ucinewgame")
-        self.write("isready")
-        self.read_until("readyok")
-        
-        self.write(f"position fen '{fen}'")
-        self.write("eval")
-        output= self.read_until("Final")
-        output = "\n".join(output)
-        import re
-        m = re.search(r"Final evaluation\s+([+-]?\d+\.?\d*)", output)
-        return float(m.group(1)) if m else None
-
-
-    def nnue(self, fens):
-
-        self.write("setoption name Use NNUE value true")
-       
-        score=[]
-        for fen in fens:
-            score.append(self._nnue_eval_fen(fen))
-        
-        return score
-
-    def _eval_fen(self, fen):
-        self.write("ucinewgame")
-        self.write("isready")
-        self.read_until("readyok")
-
-        self.write(f"position fen '{fen}'")
-        self.write("eval")
-        output= self.read_until("Final")
-        output = "\n".join(output)
-        import re
-        m = re.search(r"Final evaluation\s+([+-]?\d+\.?\d*)", output)
-        return float(m.group(1)) if m else None 
-
-
     def eval(self, fens):
         
-        self.write("setoption name Use NNUE value false")
+        self.write("setoption name Use NNUE value true")
         
         score=[]
         for fen in fens:
-            score.append(self._eval_fen(fen))
+            self.write("ucinewgame")
+            self.write("isready")
+            self.read_until("readyok")
+
+            self.write(f"position fen '{fen}'")
+            self.write("eval")
+            output= self.read_until("Final")
+            output = "\n".join(output)
+        
+            m = re.search(r"Final evaluation\s+([+-]?\d+\.?\d*)", output)
+            score.append(float(m.group(1)) if m else None)
+
+            buckets = {
+                int(b): float(v.replace(' ', ''))
+                for b, v in re.findall(
+                r'\|\s*(\d+)\s*\|\s*([+-]\s*[\d.]+)',
+                text
+                )
+            }
+
+            used_bucket = int(re.search(
+                r'<-- this bucket is used',
+                text
+            ) is not None)
+
+            nnue = float(re.search(
+                r'NNUE evaluation\s+([+-]\d+)',
+                text
+            ).group(1))
+
+            white_nnue = float(re.search(
+                r'NNUE evaluation\s+([+-]\s*[\d.]+)\s+\(white side\)',
+                text
+            ).group(1).replace(' ', ''))
         
         return score
