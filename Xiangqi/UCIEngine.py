@@ -11,7 +11,11 @@ from Xiangqi import *
 class UCIEngine:
     def __init__(self, backend='fairyxq'):
 
-        self.engine_setup(backend)
+        if self.is_alive():
+            print("Engine is alive!")
+            self.close()
+        else:
+            self.engine_download(backend)
         
         self.proc = subprocess.Popen(
             [os.path.join(os.getcwd(), backend)],
@@ -53,7 +57,7 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
-    def engine_setup(self, backend="fairyxq"): 
+    def engine_download(self, backend="fairyxq"): 
         # download engine and nnue weights
         if not os.path.exists(backend):
             if backend.lower()=='fairyxq':
@@ -79,12 +83,16 @@ class UCIEngine:
         os.system(f"chmod +x {file_name}")
 
         if os.access(backend, os.X_OK):
-            print(f"{file_name} engine starting up ...... done!")
-
+            print(f"{file_name} engine downloading ...... done!")
     
     def is_alive(self):
         return self.proc.poll() is None
 
+    def close(self):
+        # Quit engine
+        self.write("quit")
+        self.proc.terminate()
+        
     def write(self, cmd):
         if isinstance(cmd, bytes):
             data = cmd.decode()
@@ -305,11 +313,6 @@ class UCIEngine:
             "bestmove": bestmove,
             "pv": pv_list
         }
-
-    def close(self):
-        # Quit engine
-        self.write("quit")
-        self.proc.terminate()
     
     def eval(self, fens):
         
