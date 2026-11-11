@@ -11,11 +11,7 @@ from Xiangqi import *
 class UCIEngine:
     def __init__(self, backend='fairyxq'):
 
-        if self.is_alive():
-            print("Engine is alive!")
-            self.close()
-        else:
-            self.engine_download(backend)
+        self.engine_download(backend)
         
         self.proc = subprocess.Popen(
             [os.path.join(os.getcwd(), backend)],
