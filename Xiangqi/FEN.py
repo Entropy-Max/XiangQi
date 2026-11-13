@@ -36,6 +36,9 @@ class FEN:
         self.board = [] # matrix 
         self._to_matrix()
         self.validate()
+
+        self.piece_counts = {}
+        self.init_piece_counts()
       
     def __str__(self):
         return f"FEN(fen={self.fen})"
@@ -101,7 +104,14 @@ class FEN:
 
         self.fen = '/'.join(fen_rows)
 
-    
+    def init_piece_counts(self):
+        for r, row in enumerate(self.board):
+            for c, cell in enumerate(row):
+                if cell == '.':
+                    continue
+                count = self.piece_counts.get(cell, 0) + 1
+                self.piece_counts[cell] = count
+                
     def flip_lr(self):
 
         ranks = self.fen.split('/')
