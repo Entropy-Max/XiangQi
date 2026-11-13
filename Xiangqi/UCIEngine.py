@@ -152,7 +152,7 @@ class UCIEngine:
         
         return moves
 
-    def onemove(self, fen):
+    def one_move(self, fen):
     
         # Start new game
         self.write("ucinewgame")
@@ -185,10 +185,11 @@ class UCIEngine:
                     score=int(m.group(3))
                     pv=m.group(4).split()               
 
-        return {"depth": depth, 
+         return {"depth": depth, 
                 "score_type": score_type, 
                 "score":score, 
                 "pv":pv}
+        
         
     def bestmove(self, fen, depth=10,timeout=1.0):
         """
@@ -310,7 +311,7 @@ class UCIEngine:
             "pv": pv_list
         }
     
-    def eval(self, fens):
+    def eval(self, fens, detailed=False):
         
         self.write("setoption name Use NNUE value true")
         
@@ -351,4 +352,7 @@ class UCIEngine:
                 text
             ).group(1).replace(' ', ''))
         
-        return score
+        return {
+            "score":score,
+            "used_bucket":used_bucket
+        }
