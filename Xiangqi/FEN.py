@@ -111,7 +111,35 @@ class FEN:
                     continue
                 count = self.piece_counts.get(cell, 0) + 1
                 self.piece_counts[cell] = count
-                
+     
+    def get_bucket(self):
+
+        if self.turn_red:
+            ur=self.piece_counts['R']
+            orr=self.piece_counts['r']
+            um=self.piece_counts['N']+self.piece_counts['C']
+            om=self.piece_counts['n']+self.piece_counts['c']
+        else:
+            ur=self.piece_counts['r']
+            orr=self.piece_counts['R']
+            um=self.piece_counts['n']+self.piece_counts['c']
+            om=self.piece_counts['N']+self.piece_counts['C']
+
+        if ur == orr:
+            return (
+                ur * 8
+                + 4 * int(um == om)
+                + min((um + om) // 2, 3)
+            )
+        elif ur == 2 and orr == 1:
+            return 24 + int(um + om >= 4)
+        elif ur == 1 and orr == 2:
+            return 26 + int(um + om >= 4)
+        elif ur > 0 and orr == 0:
+             return 28 + int(um + om >= 4)
+        else:
+            return 30 + int(um + om >= 4)
+        
     def flip_lr(self):
 
         ranks = self.fen.split('/')
