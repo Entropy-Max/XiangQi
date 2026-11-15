@@ -337,10 +337,11 @@ class UCIEngine:
                 )
             }
 
-            used_bucket = int(re.search(
-                r'Bucket\s+(\d+)\s+.*?<-- this bucket is used',
-                output
-            ).group(1))
+            used_bucket = None
+            for line in output.splitlines():
+                if '<-- this bucket is used' in line:
+                    used_bucket = int(re.search(r'\|\s*(\d+)', line).group(1))
+                    break
 
             nnue = float(re.search(
                 r'NNUE evaluation\s+([+-]\d+)',
