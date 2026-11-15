@@ -338,9 +338,9 @@ class UCIEngine:
             }
 
             used_bucket = int(re.search(
-                r'<-- this bucket is used',
+                r'Bucket\s+(\d+)\s+.*?<-- this bucket is used',
                 output
-            ) is not None)
+            ).group(1))
 
             nnue = float(re.search(
                 r'NNUE evaluation\s+([+-]\d+)',
