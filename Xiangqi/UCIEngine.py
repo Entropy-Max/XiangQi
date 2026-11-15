@@ -333,23 +333,23 @@ class UCIEngine:
                 int(b): float(v.replace(' ', ''))
                 for b, v in re.findall(
                 r'\|\s*(\d+)\s*\|\s*([+-]\s*[\d.]+)',
-                text
+                output
                 )
             }
 
             used_bucket = int(re.search(
                 r'<-- this bucket is used',
-                text
+                output
             ) is not None)
 
             nnue = float(re.search(
                 r'NNUE evaluation\s+([+-]\d+)',
-                text
+                output
             ).group(1))
 
             white_nnue = float(re.search(
                 r'NNUE evaluation\s+([+-]\s*[\d.]+)\s+\(white side\)',
-                text
+                output
             ).group(1).replace(' ', ''))
         
         return {
