@@ -184,8 +184,8 @@ class UCIEngine:
                     score_type=m.group(2)
                     score=int(m.group(3))
                     pv=m.group(4).split()               
-
-         return {"depth": depth, 
+        
+        return {"depth": depth, 
                 "score_type": score_type, 
                 "score":score, 
                 "pv":pv}
