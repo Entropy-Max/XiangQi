@@ -79,7 +79,7 @@ class UCIEngine:
         os.system(f"chmod +x {engine_name}")
         
         if os.access(engine_name, os.X_OK):
-            print(f"{engine_name} downloading ...... done!")
+            print(f"{engine_name} ready!")
     
     def is_alive(self):
         return self.proc.poll() is None
