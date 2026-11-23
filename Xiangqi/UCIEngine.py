@@ -57,7 +57,7 @@ class UCIEngine:
         if not os.path.exists(backend):
             if backend.lower() in ['fairysf','fairysfnnue']:
                 url = ["https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairy-stockfish_x86-64"]
-           elif backend.lower()=='pikafish':
+            elif backend.lower()=='pikafish':
                 print("Pikafish requires NNUE net file!")
                 url = ["https://github.com/official-pikafish/Networks/releases/download/master-net/pikafish.nnue",
                     "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/pikafish"]
