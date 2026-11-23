@@ -1,4 +1,4 @@
-import os
+byimport os
 import subprocess
 import threading
 import queue
@@ -7,9 +7,8 @@ from urllib.parse import urlparse
 import requests
 from Xiangqi import *
 
-
 class UCIEngine:
-    def __init__(self, backend='fairyxq'):
+    def __init__(self, backend='fairysfnnue'):
 
         self.engine_download(backend)
         
@@ -42,26 +41,23 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
-        if backend.lower=='fairystockfishnnue':
-            self.write(f"setoption name EvalFile value {NNUE_PATH}")
+        if backend.lower=='fairysfnnue':      
             self.write(f"setoption name Use NNUE value true")
-        elif backend.lower=="fairyxq":
+        elif backend.lower=="fairysf":
             self.write(f"setoption name Use NNUE value false")
         elif backend.lower=="pikafish":
+            self.write(f"setoption name EvalFile value pikafish.nnue")
             self.write(f"setoption name Use NNUE value true")
 
         self.write("isready")
         self.read_until("readyok")
 
-    def engine_download(self, backend="fairyxq"): 
+    def engine_download(self, backend="fairysfnnue"): 
         # download engine and nnue weights
         if not os.path.exists(backend):
-            if backend.lower()=='fairyxq':
-                url = ["https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairyxq"]
-                #url = ["https://github.com/fairy-stockfish/Fairy-Stockfish/releases/latest/download/fairy-stockfish-largeboard_x86-64"]
-            elif backend.lower()=='stockfishnnue':
-                url=[]
-            elif backend.lower()=='pikafish':
+            if backend.lower() in ['fairysf','fairysfnnue']:
+                url = ["https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairy-stockfish_x86-64"]
+           elif backend.lower()=='pikafish':
                 print("Pikafish requires NNUE net file!")
                 url = ["https://github.com/official-pikafish/Networks/releases/download/master-net/pikafish.nnue",
                     "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/pikafish"]
