@@ -11,9 +11,14 @@ class UCIEngine:
     def __init__(self, backend='fairysfnnue'):
 
         self.engine_download(backend)
+
+        if backend.lower() in ['fairysf','fairysfnnue']:
+            engine_name="fairy-stockfish_x86-64"
+        elif backend.lower()=='pikafish':
+            engine_name="pikafish"
         
         self.proc = subprocess.Popen(
-            [os.path.join(os.getcwd(), backend)],
+            [os.path.join(os.getcwd(), engine_name)],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
