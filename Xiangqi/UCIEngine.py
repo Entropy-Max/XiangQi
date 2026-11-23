@@ -16,7 +16,10 @@ class UCIEngine:
             engine_name="fairy-stockfish_x86-64"
         elif backend.lower()=='pikafish':
             engine_name="pikafish"
-        
+
+        # Make it executable
+        os.system(f"chmod +x {engine_name}")
+               
         self.proc = subprocess.Popen(
             [os.path.join(os.getcwd(), engine_name)],
             stdin=subprocess.PIPE,
@@ -75,12 +78,8 @@ class UCIEngine:
                     f.write(r.content)
                 print(f"{file_name} downloading ...... done!")
 
-        # Make it executable
-        file_name = os.path.basename(backend)
-        os.system(f"chmod +x {file_name}")
-
         if os.access(backend, os.X_OK):
-            print(f"{file_name} engine downloading ...... done!")
+            print(f"{backend} engine downloading ...... done!")
     
     def is_alive(self):
         return self.proc.poll() is None
