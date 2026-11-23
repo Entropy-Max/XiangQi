@@ -78,7 +78,7 @@ class UCIEngine:
         # Make it executable
         os.system(f"chmod +x {engine_name}")
         
-        if os.access(backend, os.X_OK):
+        if os.access(engine_name, os.X_OK):
             print(f"{engine_name} downloading ...... done!")
     
     def is_alive(self):
