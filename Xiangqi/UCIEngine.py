@@ -10,15 +10,12 @@ from Xiangqi import *
 class UCIEngine:
     def __init__(self, backend='fairysfnnue'):
 
-        self.engine_download(backend)
-
         if backend.lower() in ['fairysf','fairysfnnue']:
             engine_name="fairy-stockfish_x86-64"
         elif backend.lower()=='pikafish':
             engine_name="pikafish"
 
-        # Make it executable
-        os.system(f"chmod +x {engine_name}")
+        self.engine_download(engine_name)
                
         self.proc = subprocess.Popen(
             [os.path.join(os.getcwd(), engine_name)],
@@ -60,12 +57,12 @@ class UCIEngine:
         self.write("isready")
         self.read_until("readyok")
 
-    def engine_download(self, backend="fairysfnnue"): 
+    def engine_download(self, engine_name): 
         # download engine and nnue weights
-        if not os.path.exists(backend):
-            if backend.lower() in ['fairysf','fairysfnnue']:
+        if not os.path.exists(engine_name):
+            if engine_name.lower() = 'fairy-stockfish_x86-64':
                 url = ["https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairy-stockfish_x86-64"]
-            elif backend.lower()=='pikafish':
+            elif engine_name.lower()=='pikafish':
                 print("Pikafish requires NNUE net file!")
                 url = ["https://github.com/official-pikafish/Networks/releases/download/master-net/pikafish.nnue",
                     "https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/pikafish"]
@@ -77,9 +74,12 @@ class UCIEngine:
                 with open(file_name, "wb") as f:
                     f.write(r.content)
                 print(f"{file_name} downloading ...... done!")
-
+ 
+        # Make it executable
+        os.system(f"chmod +x {engine_name}")
+        
         if os.access(backend, os.X_OK):
-            print(f"{backend} engine downloading ...... done!")
+            print(f"{engine_name} downloading ...... done!")
     
     def is_alive(self):
         return self.proc.poll() is None
