@@ -60,7 +60,7 @@ class UCIEngine:
     def engine_download(self, engine_name): 
         # download engine and nnue weights
         if not os.path.exists(engine_name):
-            if engine_name.lower() = 'fairy-stockfish_x86-64':
+            if engine_name.lower() == 'fairy-stockfish_x86-64':
                 url = ["https://raw.githubusercontent.com/Entropy-Max/XiangQi/main/fairy-stockfish_x86-64"]
             elif engine_name.lower()=='pikafish':
                 print("Pikafish requires NNUE net file!")
