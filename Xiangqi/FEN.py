@@ -30,8 +30,6 @@ class FEN:
             # usually six parts, ignore the rest parts
             self.turn_red = fenparts[1].lower() in ['w','r']
 
-        self.turn = ' w' if self.turn_red else ' b'
-        
         self.fen = fenparts[0]   
         self.fens=[self.fen]
         
@@ -46,6 +44,10 @@ class FEN:
     def __str__(self):
         return f"FEN(fen={self.fen})"
 
+    def get(self):
+        turn = 'w' if self.turn_red else 'b'
+        return f'{self.fen} {turn}'
+    
     def validate(self):
 
         valid = True 
@@ -55,6 +57,7 @@ class FEN:
             print("Warning: 10 ranks Expected")
         
         for rank in self.board:
+           
             if len(rank)!=9:
                 valid = False
                 print(f"Warning: 9 files expected in rank {rank}")
