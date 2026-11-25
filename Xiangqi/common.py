@@ -2,10 +2,6 @@
 START_FEN = "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1"
 BLANK_FEN = "9/9/9/9/9/9/9/9/9/9"
 
-# engine 
-
-NNUE_PATH = 'xiangqi-c07e94a5c7cb.nnue'
-
 # moves
 
 red_pieces = '车马炮帅仕相兵'
